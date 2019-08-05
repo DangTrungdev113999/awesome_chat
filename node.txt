@@ -1,6 +1,9 @@
-module bluebird to work with standard promise+
-The methods of mongoose will return Promise so when use Models, once will usually use async/await
+- module bluebird to work with standard promise+
+- The methods of mongoose will return Promise so when use Models, once will usually use async/await
+- if extend nested in ejs, will not inheritance js and css of master file,
+ so they will use experss-extend-ejs npm to inheritance
 
-systax start mongodb: sudo systemctl start mongodb
-systax start environment variable: source sh/ env.sh 
-systax to check environment variable: printenv | grep DB 
+
+- systax start mongodb: sudo systemctl start mongodb
+- systax start environment variable: source sh/ env.sh 
+- systax to check environment variable: printenv | grep DB 
