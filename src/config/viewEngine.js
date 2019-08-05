@@ -2,6 +2,7 @@ import express from 'express';
 import expressEjsExtend from 'express-ejs-extend';
 
 // config view engine for app
+// @param app from exacly express
 
 let configViewEngine = (app) => {
   app.use(express.static('./src/public'));
