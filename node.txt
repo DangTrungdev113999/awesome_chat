@@ -7,3 +7,5 @@
 - systax start mongodb: sudo systemctl start mongodb
 - systax start environment variable: source sh/ env.sh 
 - systax to check environment variable: printenv | grep DB 
+
+find out more about: Object.values();
