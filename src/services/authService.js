@@ -50,10 +50,12 @@ let register =  (email, gender, password, protocol, host) => {
 
 let verifyAccount = (token) => {
   return new Promise(async (resolve, reject) => {
+    
     let userByToken = await UserModal.findByToken(token);
     if(!userByToken) {
       return reject(transErrors.token_undefined);
     }
+
     await UserModal.verify(token);
     resolve(transSuccess.account_actived);
   })

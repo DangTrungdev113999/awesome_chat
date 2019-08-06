@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 let Schema = mongoose.Schema;
 
@@ -30,6 +31,7 @@ let UserSchema = new Schema({
   deletedAt: {type: Number, default: null}
 });
 
+// Schema.statics is just find oun record
 UserSchema.statics = {
   createNew(item) {
     return this.create(item);
@@ -48,6 +50,17 @@ UserSchema.statics = {
       {'local.verifyToken': token},
       {'local.isActive': true, 'local.verifyToken': null}
     ).exec();
+  },
+  findUserById(id) {
+    return this.findById(id).exec();
+  }
+}
+
+// Schema.methods is  find oun record and using it
+UserSchema.methods = {
+  comparePassword(password) {
+    // return a promise, has result true or false
+    return bcrypt.compare(password, this.local.password); 
   }
 }
 
