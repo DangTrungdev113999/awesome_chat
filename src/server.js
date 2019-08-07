@@ -7,68 +7,69 @@ import connectFlash from 'connect-flash';
 import connectSession from './config/session';
 import passport from 'passport';
 
-import pem from 'pem';
-import https from 'https';
+// init app
+let app = express();
 
-pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
-  if (err) {
-    throw err
-  }
+// connect to Mongo
+ConnectDB();
 
-    // init app
-  let app = express();
+// config session
+connectSession(app);
 
-  // connect to Mongo
-  ConnectDB();
+// config view engine
+configViewEngine(app);
 
-  // config session
-  connectSession(app);
+// Enable post data for request
+app.use(bodyParser.urlencoded({extended: true}));
 
-  // config view engine
-  configViewEngine(app);
+// Enable flash
+app.use(connectFlash());
 
-  // Enable post data for request
-  app.use(bodyParser.urlencoded({extended: true}));
+//config passport js
+app.use(passport.initialize());
+app.use(passport.session());
 
-  // Enable flash
-  app.use(connectFlash());
+// init all routes
+initRoutes(app);
 
-  //config passport js
-  app.use(passport.initialize());
-  app.use(passport.session());
+app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
+  console.log(`running on ${process.env.APP_PORT}: ${process.env.APP_HOST}`);
+})
 
-  // init all routes
-  initRoutes(app);
-  https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.APP_PORT, process.env.APP_HOST, () => {
-    console.log(`running on ${process.env.APP_PORT}: ${process.env.APP_HOST}`);
-  })
-});
+// import pem from 'pem';
+// import https from 'https';
+// pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+//   if (err) {
+//     throw err
+//   }
 
-// // init app
-// let app = express();
+//     // init app
+//   let app = express();
 
-// // connect to Mongo
-// ConnectDB();
+//   // connect to Mongo
+//   ConnectDB();
 
-// // config session
-// connectSession(app);
+//   // config session
+//   connectSession(app);
 
-// // config view engine
-// configViewEngine(app);
+//   // config view engine
+//   configViewEngine(app);
 
-// // Enable post data for request
-// app.use(bodyParser.urlencoded({extended: true}));
+//   // Enable post data for request
+//   app.use(bodyParser.urlencoded({extended: true}));
 
-// // Enable flash
-// app.use(connectFlash());
+//   // Enable flash
+//   app.use(connectFlash());
 
-// //config passport js
-// app.use(passport.initialize());
-// app.use(passport.session());
+//   //config passport js
+//   app.use(passport.initialize());
+//   app.use(passport.session());
 
-// // init all routes
-// initRoutes(app);
+//   // init all routes
+//   initRoutes(app);
+//   https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.APP_PORT, process.env.APP_HOST, () => {
+//     console.log(`running on ${process.env.APP_PORT}: ${process.env.APP_HOST}`);
+//   })
+// });
 
-// app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
-//   console.log(`running on ${process.env.APP_PORT}: ${process.env.APP_HOST}`);
-// })
+
