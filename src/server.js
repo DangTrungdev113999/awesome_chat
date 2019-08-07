@@ -7,31 +7,68 @@ import connectFlash from 'connect-flash';
 import connectSession from './config/session';
 import passport from 'passport';
 
-// init app
-let app = express();
+import pem from 'pem';
+import https from 'https';
 
-// connect to Mongo
-ConnectDB();
+pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+  if (err) {
+    throw err
+  }
 
-// config session
-connectSession(app);
+    // init app
+  let app = express();
 
-// config view engine
-configViewEngine(app);
+  // connect to Mongo
+  ConnectDB();
 
-// Enable post data for request
-app.use(bodyParser.urlencoded({extended: true}));
+  // config session
+  connectSession(app);
 
-// Enable flash
-app.use(connectFlash());
+  // config view engine
+  configViewEngine(app);
 
-//config passport js
-app.use(passport.initialize());
-app.use(passport.session());
+  // Enable post data for request
+  app.use(bodyParser.urlencoded({extended: true}));
 
-// init all routes
-initRoutes(app);
+  // Enable flash
+  app.use(connectFlash());
 
-app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
-  console.log(`running on ${process.env.APP_PORT}: ${process.env.APP_HOST}`);
-})
+  //config passport js
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  // init all routes
+  initRoutes(app);
+  https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.APP_PORT, process.env.APP_HOST, () => {
+    console.log(`running on ${process.env.APP_PORT}: ${process.env.APP_HOST}`);
+  })
+});
+
+// // init app
+// let app = express();
+
+// // connect to Mongo
+// ConnectDB();
+
+// // config session
+// connectSession(app);
+
+// // config view engine
+// configViewEngine(app);
+
+// // Enable post data for request
+// app.use(bodyParser.urlencoded({extended: true}));
+
+// // Enable flash
+// app.use(connectFlash());
+
+// //config passport js
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// // init all routes
+// initRoutes(app);
+
+// app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
+//   console.log(`running on ${process.env.APP_PORT}: ${process.env.APP_HOST}`);
+// })

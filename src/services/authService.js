@@ -19,7 +19,6 @@ let register =  (email, gender, password, protocol, host) => {
       return reject(transErrors.account_in_use);
     }
 
-
     let salt = bcrypt.genSaltSync(saltRounds);
     let userItem = {
       username: email.split('@')[0],
