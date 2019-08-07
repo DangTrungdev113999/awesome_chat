@@ -20,3 +20,8 @@ export MAIL_PORT=***;
 export FB_ID=***
 export FB_APP_SECRET=***
 export FB_CALLBACK_URL=***
+
+# config facebooke login app
+export GG_ID=***
+export GG_APP_SECRET=***
+export GG_CALLBACK_URL=***
