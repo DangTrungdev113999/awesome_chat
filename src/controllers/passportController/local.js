@@ -31,14 +31,14 @@ let initPassportLocal = () => {
       return done(null, user, req.flash('success', transSuccess.loginSuccess(user.username)));
     } catch (error) {
       console.log(error);
-      return done(null, false, req.flash('errors', transErrors.server_error))
+      return done(null, false, req.flash('errors', transErrors.server_error));
     }
   }))
 
   // save userId to session 
   passport.serializeUser((user, done) => {
-    done(null, user._id)
-  })
+    done(null, user._id);
+  });
 
   // this is called by passport.session();
   // return userInfo and assign  req.user
@@ -51,7 +51,7 @@ let initPassportLocal = () => {
       .catch(error => {
         return done(error, null);
       });
-  })
+  });
 };
 
 module.exports = initPassportLocal;

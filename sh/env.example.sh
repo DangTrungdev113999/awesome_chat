@@ -15,3 +15,8 @@ export MAIL_USER=***;
 export MAIL_PASSWORD=***;
 export MAIL_HOST=***;
 export MAIL_PORT=***;
+
+# config facebooke login app
+export FB_ID=***
+export FB_APP_SECRET=***
+export FB_CALLBACK_URL=***
