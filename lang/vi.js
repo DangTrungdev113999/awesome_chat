@@ -3,6 +3,10 @@ export const tranValidation = {
   gender_incorrect: "tại sao bạn lại không có giới tính!",
   password_incorrect: "mật khẩu phải bao gồm 8 kí tự, chữ hoa, chữ thường, số và kí tự đặc biệt!",
   password_confirmation_incorrect: "Nhập lại mật khẩu!",
+  update_username: 'Tên chỉ được phép giới hạn đến 3-17 kí tự, không được phép chứa kí tự đặc biệt !',
+  update_gender: 'OMG…! Bạn đang muốn hack à.!',
+  update_address: 'Đia chỉ giới hạn từ  3 – 30 kí tự.!',
+  update_phone: 'Số điện thoại bắt đầu bằng 0 và kết thúc, giới hạn từ 10 đén 11 số.!'
 }
 
 export const transErrors = {
@@ -25,7 +29,7 @@ export const transSuccess = {
     return `xin chào ${username}, chúc bạn một ngày tốt lành`
   },
   logout_success: 'Đăng xuất tài khoản thành công, hẹn gặp lại bạn !',
-  avatar_updated: 'cập nhật ảnh đại diện thành công !'
+  user_info_updeted: 'cập nhật thông tin thành công'
 }
 
 export const transMail = {
