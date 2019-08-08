@@ -35,10 +35,10 @@ function updateUserInfo() {
       imagePreview.show();
       fileReader.readAsDataURL(fileData);
 
-      let formData = new FromData();
-      formData.appendTo('avatar', fileData);
+      let formdata = new FormData();
+      formdata.append("avatar", fileData);
 
-      userAvatar = formData;
+      userAvatar = formdata;
 
     } else {
       alertify.notify('Trình duyệt của bạn không hỗ trợ FileReader.', 'error', 6);
@@ -74,7 +74,7 @@ $(document).ready(function() {
 
   $('#input-btn-update-user').bind('click', function() {
     if($.isEmptyObject(userInfo) && !userAvatar) {
-      alertify.notify('mai sua', 'error', 6);
+      alertify.notify('vui lòng điền thông tin trước khi apdate', 'error', 6);
       return false;
     };
 
@@ -86,19 +86,38 @@ $(document).ready(function() {
       processData: false,
       data: userAvatar,
       success: function(result) {
-        //
+        console.log(result);
+        //display success
+        $('.user-modal-alert-success').find("span").text(resule.message);
+        $('.user-modal-alert-success').css('display', 'block');
+
+        // update avatar at navbar
+        $('#navbar-avatar').attr("src", resilt.imageSrc); 
+
+        // update avatar source
+        originAvatarSrc = result.imageSrc;
+
+        //reset all
+        $('#input-btn-cancel-update-user').click();
       },
       error: function(error) {
-        //
+        // display error
+        $('.user-modal-alert-error').find("span").text(error.responseText);
+        $('.user-modal-alert-error').css('display', 'block');
+
+        //reset image from default
+        $('#input-btn-cancel-update-user').click();
       }
 
-    })
+    });
 
   });
+
   $('#input-btn-cancel-update-user').bind('click', function() {
     userAvatar = null;
     userInfo = {};
     $('#user-modal-avatar').attr('src', originAvatarSrc);
+    $("input-change-avatar").val(null);
   });
 
 });
