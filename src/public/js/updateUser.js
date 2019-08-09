@@ -181,17 +181,16 @@ function callUpdateUserAvatar()  {
     url: '/user/update-avatar',
     type: 'put',
     cache: false, // just use for upload file
-    contenType: false, // just use for upload file
+    contentType: false, // just use for upload file
     processData: false, // just use for upload file
     data: userAvatar,
     success: function(result) {
-      console.log(result);
       //display success
-      $('.user-modal-alert-success').find("span").text(resule.message);
+      $('.user-modal-alert-success').find("span").text(result.message);
       $('.user-modal-alert-success').css('display', 'block');
 
       // update avatar at navbar
-      $('#navbar-avatar').attr("src", resilt.imageSrc); 
+      $('#navbar-avatar').attr("src", result.imageSrc); 
 
       // update avatar source
       originAvatarSrc = result.imageSrc;

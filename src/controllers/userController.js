@@ -16,7 +16,7 @@ let storageAvatar = multer.diskStorage({
       return callback(transErrors.avatar_type, null);
     };
 
-    let avatarName = `${Data.now()}-${uuidv4()}-${file.originalname}`;
+    let avatarName = `${Date.now()}-${uuidv4()}-${file.originalname}`;
     callback(null, avatarName);
   }
 });
@@ -44,12 +44,12 @@ let updateAvatar = (req, res) => {
       let userUpdate = await user.updateUser(req.user._id, updateUserItem);
       // after update mongoose will return old data
 
-      // remove user
-      // await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avater}`);
+      // remove old user image
+      await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`);
 
       let result = {
         message: transSuccess.user_info_updeted,
-        imageSrc: `images/users/${req.file.avatar}`
+        imageSrc: `images/users/${req.file.filename}`
       }
       return res.status(200).send(result);
     } catch (error) {
