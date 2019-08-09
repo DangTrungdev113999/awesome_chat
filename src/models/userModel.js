@@ -62,6 +62,9 @@ UserSchema.statics = {
   },
   updateUserItem(id, item) {
     return this.findByIdAndUpdate(id, item).exec(); // after update mongoose will return old data
+  },
+  updatePassword(id, hashedPassword) {
+    return this.findByIdAndUpdate(id, {"local.password": hashedPassword}).exec();
   }
 }
 
