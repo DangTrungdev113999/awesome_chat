@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 let findUsersContact = (currentUserId, keyword) => {
   return new Promise( async (resolve, reject) => {
-    let deprecateUserIds =  [];
+    let deprecateUserIds =  [currentUserId];
     let contactByUser = await ContacModel.findAllByUser(currentUserId);
     contactByUser.forEach(contact => {
       deprecateUserIds.push(contact.userId);
@@ -17,6 +17,40 @@ let findUsersContact = (currentUserId, keyword) => {
   });
 };
 
+let addNew = (currentUserId, contactId) => {
+  return new Promise(async (resolve, reject) => {
+    let contactExitsts = await ContacModel.checkExists(currentUserId, contactId);
+    if (contactExitsts) {
+      return reject(false);
+    };
+
+    let newContactItem = {
+      userId: currentUserId,
+      contactId: contactId
+    };
+
+    let newContact = await ContacModel.createNew(newContactItem);
+    resolve(newContact);
+  });
+};
+
+let removeRequestContact = (userId, contactId) => {
+  return new Promise(async (resolve, reject) => {
+    let removeReq = await ContacModel.removeRequestContact(userId, contactId);
+    if (removeReq.result.n === 0) {
+      return reject(false);
+    };
+    resolve(true);
+  });
+};
+
 module.exports = {
+<<<<<<< HEAD
   findUsersContact
 };
+=======
+  findUsersContact,
+  addNew,
+  removeRequestContact
+};
+>>>>>>> d5501ac424f36c1abb9be6a7b4389c9eae746b6d
