@@ -64,7 +64,7 @@ let updateInfo = async (req, res) => {
   let errorArr = [];
   let validationErrors = validationResult(req);
   if(!validationErrors.isEmpty()) {
-    let errors = Object.values(validationErrors.mapped());
+    let errors = Object.values(validationResult.mapped());
     errors.forEach(error => {
       errorArr.push(error.msg);
     });
