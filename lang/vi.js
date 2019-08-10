@@ -6,7 +6,8 @@ export const tranValidation = {
   update_username: 'Tên chỉ được phép giới hạn đến 3-17 kí tự, không được phép chứa kí tự đặc biệt !',
   update_gender: 'OMG…! Bạn đang muốn hack à.!',
   update_address: 'Đia chỉ giới hạn từ  3 – 30 kí tự.!',
-  update_phone: 'Số điện thoại bắt đầu bằng 0 và kết thúc, giới hạn từ 10 đén 11 số.!'
+  update_phone: 'Số điện thoại bắt đầu bằng 0 và kết thúc, giới hạn từ 10 đén 11 số.!',
+  find_users_contact: "Không cho phép kí tự đặc biệt, chỉ cho phép chứ số và khoảng trống"
 }
 
 export const transErrors = {

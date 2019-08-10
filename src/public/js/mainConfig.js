@@ -183,3 +183,4 @@ $(document).ready(function() {
   // Flash message o man hinh master
   flashMasterNotify();
 });
+

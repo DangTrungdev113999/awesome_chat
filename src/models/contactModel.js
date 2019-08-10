@@ -14,6 +14,19 @@ let ContactSchema = new Schema({
 ContactSchema.statics = {
   createNew(item) {
     return this.create(item); // return Promise so onece will use async/await
+  },
+
+  /**
+   * find all item that related with user
+   * @param {string} userId 
+   */
+  findAllByUser(userId) {
+    return this.find({
+      $or: [
+        {"userId": userId},
+        {"contactId": userId}
+      ]
+    }).exec();
   }
 };
 
