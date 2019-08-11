@@ -14,4 +14,4 @@
 
 - find out more about npm: *bower,bcrypt, uuid, connect-flash,
   express-session, express-validator, experss-ejs-extend, bluebird, 
-  *passport, multer, *fs-extra
+  *passport, multer, *fs-extra, *socket.io, *cookie-parse, passport.socketio

@@ -10,6 +10,10 @@ export DB_PASSWORD=***
 export APP_HOST=***;
 export APP_POST=***;
 
+#config session key & secret session
+export SESSION_KEY = ***;
+export SESSION_SECRET= ***;
+
 # config admin email account
 export MAIL_USER=***;
 export MAIL_PASSWORD=***;
@@ -25,3 +29,4 @@ export FB_CALLBACK_URL=***
 export GG_ID=***
 export GG_APP_SECRET=***
 export GG_CALLBACK_URL=***
+

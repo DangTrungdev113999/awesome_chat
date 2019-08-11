@@ -4,17 +4,27 @@ import configViewEngine from './config/viewEngine';
 import initRoutes from './routes/web';
 import bodyParser from 'body-parser';
 import connectFlash from 'connect-flash';
-import connectSession from './config/session';
+import session from './config/session';
 import passport from 'passport';
+import http from 'http';
+import socketio from 'socket.io';
+import initSocket from './sockets/index';
+
+import cookieParser from 'cookie-parser';
+import configSocketio from './config/socketio';
 
 // init app
 let app = express();
+
+// init server with socket.io & express app
+let server = http.createServer(app);
+let io = socketio(server);
 
 // connect to Mongo
 ConnectDB();
 
 // config session
-connectSession(app);
+session.config(app);
 
 // config view engine
 configViewEngine(app);
@@ -27,6 +37,9 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 // Enable flash
 app.use(connectFlash());
 
+// user coolie parser
+app.use(cookieParser());
+
 //config passport js
 app.use(passport.initialize());
 app.use(passport.session());
@@ -34,9 +47,17 @@ app.use(passport.session());
 // init all routes
 initRoutes(app);
 
-app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
+
+// init all socket
+initSocket(io);
+
+// config for socketid
+configSocketio(io, cookieParser, session.sessionStore);
+
+
+server.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
   console.log(`running on ${process.env.APP_PORT}: ${process.env.APP_HOST}`);
-})
+});
 
 // import pem from 'pem';
 // import https from 'https';

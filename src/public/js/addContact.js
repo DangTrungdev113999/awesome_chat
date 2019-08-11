@@ -9,6 +9,8 @@ function addContact() {  // addcontact function will inside when called ajax
 
         increaseNumberNotifContact("count-request-contact-sent");
 
+        socket.emit("add-new-contact", {contactId: targetId});
+
       };
     });
   })
