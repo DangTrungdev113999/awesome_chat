@@ -1,5 +1,6 @@
 import ContacModel from './../models/contactModel';
 import UserModel from './../models/userModel';
+import NotificationModel from './../models/notificationModel';
 import _ from 'lodash';
 
 let findUsersContact = (currentUserId, keyword) => {
@@ -24,12 +25,24 @@ let addNew = (currentUserId, contactId) => {
       return reject(false);
     };
 
+    // create contact
     let newContactItem = {
       userId: currentUserId,
       contactId: contactId
     };
 
     let newContact = await ContacModel.createNew(newContactItem);
+
+    // create notification
+    let notificationItem = {
+      senderId: currentUserId,
+      receiverId: contactId,
+      type: NotificationModel.type.ADD_CONTACT
+    };
+
+    await NotificationModel.model.createNew(notificationItem);
+
+
     resolve(newContact);
   });
 };
@@ -40,6 +53,10 @@ let removeRequestContact = (userId, contactId) => {
     if (removeReq.result.n === 0) {
       return reject(false);
     };
+
+    // remove notification
+    let notifTypeAddContact = NotificationModel.type.ADD_CONTACT
+    await NotificationModel.model.removeRequsetContactNotification(userId, contactId, notifTypeAddContact);
     resolve(true);
   });
 };

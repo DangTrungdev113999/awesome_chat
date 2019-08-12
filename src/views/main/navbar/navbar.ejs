@@ -39,13 +39,20 @@
                 <li>
                     <a href="#" id="noti_Button" data-toggle="modal" title="Thông báo">
                         <i class="fa fa-globe"></i>
-                        <div class="noti_counter" ></div>
+                        <% if(notifications.length > 0) { %>
+                            <div class="noti_counter" ><%=notifications.length %></div>
+                        <% } else { %>
+                            <div class="noti_counter display-none" ></div>
+                        <% } %>
+                        
                         <div id="noti_Container">
                             <div id="notifications">
-                                <h3>Thông báo</h3>
+                                <h3>Đánh dấu tất cả là đã đọc</h3>
                                 <div class="noti_content">
-
                                     <!-- Notification content -->
+                                    <% notifications.forEach(function(notification) { %>
+                                        <%- notification %>
+                                    <% }) %>
                                     
                                 </div>
                                 <div class="seeAll"><a href="#">Xem tất cả</a></div>
