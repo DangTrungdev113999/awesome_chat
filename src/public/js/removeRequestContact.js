@@ -21,7 +21,8 @@ function removeRequestContact() {
 
   socket.on("response-remove-request-contact", function(user) {
     console.log(user);
-    $(".noti_content").find(`span[data-uid = ${ user.id }]`).remove();
+    $(".noti_content").find(`div[data-uid = ${ user.id }]`).remove(); //popup notification
+    $("ul.list-notificatins").find(`li>div[data-uid = ${ user.id }]`).parent().remove();
 
     // xoa o model tab yc ket ban
   

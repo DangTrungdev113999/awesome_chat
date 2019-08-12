@@ -9,6 +9,8 @@ import UserModel from './../models/userModel';
 let getNotifications = (currentUserId, limit = 10) => {
   return new Promise( async(resolve, reject) => {
     try {
+
+      
       let notificattions = await NotificationModel.model.getByUserIdAndLimit(currentUserId, limit);
 
       let getNotifContent = notificattions.map(async notification => {
@@ -23,6 +25,22 @@ let getNotifications = (currentUserId, limit = 10) => {
   })
 };
 
+/**
+ * count all notification unread
+ * @param {*} currentUserId 
+ */
+let countNotifUnread = (currentUserId) => {
+  return new Promise( async(resolve, reject) => {
+    try {
+      let noticationUnread = await NotificationModel.model.noticationUnread(currentUserId);
+      resolve(noticationUnread);
+    } catch (error) {
+      reject(error);
+    }
+  })
+};
+
 module.exports = {
-  getNotifications
+  getNotifications,
+  countNotifUnread
 };

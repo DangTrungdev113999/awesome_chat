@@ -254,7 +254,7 @@ label:focus,
   z-index: 999;
 }
 
-#notifications h3 {
+#popup-mark-notif-as-read {
   display: block;
   color: #333;
   background: #FFF;
@@ -308,20 +308,21 @@ label:focus,
 }
 
 .noti_content {
-  position: relative;
   height: 300px;
   background-color: #fff;
   overflow: auto;
 }
 
-.noti_content>span {
-  position: absolute;
+.noti_content>div {
   max-width: 95%;
-  margin-top: 5px;
-  margin-left: 7px;
+  margin: 3px 0 0 7px;
   color: #333;
   padding: 8px;
-  border-top: 1px solid #fff;
+}
+
+.noti_content>div:hover {
+  cursor: pointer;
+  background-color: #eceff1;
 }
 
 .seeAll {
@@ -1290,4 +1291,37 @@ label:focus,
 
 .display-none {
   display: none
+}
+
+#noti_Button {
+  text-decoration: none;
+}
+
+.list-notificatins li {
+  width: 90%;
+  height: auto;
+  padding: 7px 0px 0px 0px;
+  margin: 0 auto;
+  list-style-type: none;
+}
+
+.list-notificatins li div {
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #dfe6e9;
+}
+
+.list-notificatins li div:hover {
+  cursor: pointer;
+  background-color: #eceff1;
+}
+
+.mark-notif-as-read {
+  float: right;
+  margin-right: 40px;
+}
+
+.read-more-notif {
+  text-align: center;
 }
