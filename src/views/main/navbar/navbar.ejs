@@ -37,17 +37,17 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="noti_Button" data-toggle="modal" title="Thông báo">
+                    <a href="javascript:void(0)" id="noti_Button" data-toggle="modal" title="Thông báo">
                         <i class="fa fa-globe"></i>
-                        <% if(notifications.length > 0) { %>
-                            <div class="noti_counter" ><%=notifications.length %></div>
+                        <% if(countNotifUnread > 0) { %>
+                            <div class="noti_counter" ><%=countNotifUnread %></div>
                         <% } else { %>
                             <div class="noti_counter display-none" ></div>
                         <% } %>
                         
                         <div id="noti_Container">
                             <div id="notifications">
-                                <h3>Đánh dấu tất cả là đã đọc</h3>
+                                <a href="javascript:void(0)" id="popup-mark-notif-as-read">Đánh dấu tất cả là đã đọc</a>
                                 <div class="noti_content">
                                     <!-- Notification content -->
                                     <% notifications.forEach(function(notification) { %>
@@ -55,7 +55,11 @@
                                     <% }) %>
                                     
                                 </div>
-                                <div class="seeAll"><a href="#">Xem tất cả</a></div>
+                                <div class="seeAll">
+                                    <a href="#notificationsModal" data-toggle="modal">
+                                    Xem tất cả
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </a>
