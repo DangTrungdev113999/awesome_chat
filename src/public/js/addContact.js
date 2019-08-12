@@ -16,7 +16,7 @@ function addContact() {  // addcontact function will inside when called ajax
 };
 
 socket.on("response-add-new-contact", function(user) {
-  let notif = `<span data-uid="${ user.id }">
+  let notif = `<span class="notif-readed-faild" data-uid="${ user.id }">
                 <img class="avatar-small" src="images/users/${ user.avatar }" alt=""> 
                 <strong>${ user.username }</strong> đã gửi cho bạn một lời mời kết bạn!
               </span><br><br><br>`;
