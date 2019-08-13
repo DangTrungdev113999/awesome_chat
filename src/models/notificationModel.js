@@ -28,6 +28,7 @@ NotificationSchema.statics = {
       "receiverId": userId
     }).sort({"createdAt": -1}).limit(limit).exec();
   },
+  
   /**
    * count all notification unread
    * @param {*} userId 

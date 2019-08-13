@@ -3,6 +3,8 @@ import UserModel from './../models/userModel';
 import NotificationModel from './../models/notificationModel';
 import _ from 'lodash';
 
+const LIMIT_NUMBER_TAKEN = 10;
+
 let findUsersContact = (currentUserId, keyword) => {
   return new Promise( async (resolve, reject) => {
     let deprecateUserIds =  [currentUserId];
@@ -61,8 +63,100 @@ let removeRequestContact = (userId, contactId) => {
   });
 };
 
+let getContacts = (currentUserId) => {
+  return new Promise( async (resolve, reject) => {
+    try {
+      let contacts = await ContacModel.getContacts(currentUserId, LIMIT_NUMBER_TAKEN);
+
+      let users = contacts.map(async contact => {
+        if (contact.contactId == currentUserId) {
+          // Something user send add friend to me
+          return await UserModel.findUserById(contact.userId);
+        }
+        // I send add friend to something user
+        return await UserModel.findUserById(contact.contactId);
+      });
+
+      resolve(await Promise.all(users));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let getContactsSend = (currentUserId) => {
+  return new Promise( async (resolve, reject) => {
+    try {
+      let contacts = await ContacModel.getContactsSend(currentUserId, LIMIT_NUMBER_TAKEN);
+
+      let users = contacts.map(async contact => {
+        return await UserModel.findUserById(contact.contactId);
+      });
+
+      resolve(await Promise.all(users));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let getContactsReceived = (currentUserId) => {
+  return new Promise( async (resolve, reject) => {
+    try {
+      let contacts = await ContacModel.getContactsReceived(currentUserId, LIMIT_NUMBER_TAKEN);
+
+      let users = contacts.map(async contact => {
+        return await UserModel.findUserById(contact.userId);
+      });
+
+      resolve(await Promise.all(users));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let countAllContacts = (currentUserId) => {
+  return new Promise( async (resolve, reject) => {
+    try {
+      let count = ContacModel.countAllContacts(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let countAllContactsSend = (currentUserId) => {
+  return new Promise( async (resolve, reject) => {
+    try {
+      let count = ContacModel.countAllContactsSend(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let countAllContactsReceived = (currentUserId) => {
+  return new Promise( async (resolve, reject) => {
+    try {
+      let count = ContacModel.countAllContactsReceived(currentUserId);
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   findUsersContact,
   addNew,
-  removeRequestContact
+  removeRequestContact,
+  getContacts,
+  getContactsSend,
+  getContactsReceived,
+  countAllContacts,
+  countAllContactsSend,
+  countAllContactsReceived
 };
