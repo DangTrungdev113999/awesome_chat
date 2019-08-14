@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import { user } from '../services';
 
 let Schema = mongoose.Schema;
 
@@ -84,6 +85,10 @@ UserSchema.statics = {
         ]}
       ]
     }, {_id: 1, username: 1, address: 1, avatar: 1}).exec();
+  },
+
+  getNormalUserById(id) {
+    return this.findById(id, {_id: 1, username: 1, avatar: 1, address: 1}).exec(); 
   }
 }
 

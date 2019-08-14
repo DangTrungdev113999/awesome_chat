@@ -104,6 +104,7 @@ ContactSchema.statics = {
    * @param {String} userId 
    * @param {Numbar} limit 
    */
+
   getContactsReceived(userId, limit) {
     return this.find({
       $and: [
@@ -144,6 +145,37 @@ ContactSchema.statics = {
       ]
     }).exec();
   },
+
+  readMoreContacts(userId, skip, limit) {
+    return this.find({
+      $and: [
+        {$or: [
+          {"userId": userId},
+          {"contactId": userId}
+        ]},
+        {"status": true}
+      ],
+    }).sort({"createdAt": -1}).limit(limit).skip(skip).exec();
+  },
+
+  readMoreContactsSend(userId, skip, limit) {
+    return this.find({
+      $and: [
+        {"userId": userId},
+        {"status": false}
+      ]
+    }).sort({"createdAt": -1}).limit(limit).skip(skip).exec();
+  },
+
+  readMoreContactsReceived(userId, skip, limit) {
+    return this.find({
+      $and: [
+        {"contactId": userId},
+        {"status": false}
+      ]
+    }).sort({"createdAt": -1}).limit(limit).skip(skip).exec();
+  }
+
 };
 
 module.exports = mongoose.model('contact', ContactSchema);
