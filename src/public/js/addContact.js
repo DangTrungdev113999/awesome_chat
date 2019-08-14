@@ -5,13 +5,15 @@ function addContact() {  // addcontact function will inside when called ajax
     $.post('/contact/add-new', {uid: targetId}, function(data) {
       if (data.success) {
         $("#find-user").find(`.user-add-new-contact[data-uid = ${targetId} ]`).hide();
-        $("#find-user").find(`.user-remove-request-contact[data-uid = ${targetId} ]`).css("display", "inline-block");
+        $("#find-user").find(`.user-remove-request-contact-sent[data-uid = ${targetId} ]`).css("display", "inline-block");
 
         increaseNumberNotifContact("count-request-contact-sent");
 
         // them o modal tap dang cho xac nhan
         let userInfoHtml = $("#find-user").find(`ul li[data-uid = ${targetId}]`).get(0).outerHTML;
         $("#request-contact-sent").find("ul").prepend(userInfoHtml);
+
+        removeRequestContactSent(); 
 
         socket.emit("add-new-contact", {contactId: targetId});
 

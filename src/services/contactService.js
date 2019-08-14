@@ -49,9 +49,9 @@ let addNew = (currentUserId, contactId) => {
   });
 };
 
-let removeRequestContact = (userId, contactId) => {
+let removeRequestContactSent = (userId, contactId) => {
   return new Promise(async (resolve, reject) => {
-    let removeReq = await ContacModel.removeRequestContact(userId, contactId);
+    let removeReq = await ContacModel.removeRequestContactSent(userId, contactId);
     if (removeReq.result.n === 0) {
       return reject(false);
     };
@@ -199,7 +199,7 @@ let readMoreContactsReceived = (currentUserId, skipNumberContactsReceived) => {
 module.exports = {
   findUsersContact,
   addNew,
-  removeRequestContact,
+  removeRequestContactSent,
   getContacts,
   getContactsSend,
   getContactsReceived,
