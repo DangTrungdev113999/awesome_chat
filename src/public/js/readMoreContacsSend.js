@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $("#request-contact-sent").bind("click", function() {
+  $("#link-read-more-contacts-send").bind("click", function() {
     let skipNumber =  $("#request-contact-sent").find("li").length;
 
     $("#link-read-more-contacts-send").css("display", "none");
@@ -32,16 +32,17 @@ $(document).ready(function() {
                         <div class="user-address">
                             <span>&nbsp ${user.address ? user.address: ""}</span>
                         </div>
-                        <div class="user-remove-request-sent action-danger" data-uid="${user._id}">
+                        <div class="user-remove-request-contact-sent action-danger display-important" data-uid="${user._id}">
                             Hủy yêu cầu
                         </div>
                     </div>
                   </li>     `);
         });
-  
+        removeRequestContactSent();
         $("#link-read-more-contacts-send").css("display", "inline-block");
         $(".read-more-contacts-send-loader").css("display", "none");
       })
     }, 300);
+    
   });
 });
