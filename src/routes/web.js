@@ -23,7 +23,6 @@ let initRoutes = app => {
   router.get("/login-register", auth.checkloggedOut, auth.getLoginRegister);
   router.post("/register", auth.checkloggedOut, authValid.register, auth.postRegister);
   router.get("/verify/:token", auth.checkloggedOut, auth.verifyAccout);
-
   router.post("/login", auth.checkloggedOut, passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login-register",
@@ -36,7 +35,6 @@ let initRoutes = app => {
     successRedirect: "/",
     failureRedirect: "/login-register",
   }));
-
   router.get("/auth/google",auth.checkloggedOut, passport.authenticate("google", {scope: ["email"]}));
   router.get("/auth/google/callback",auth.checkloggedOut, passport.authenticate("google", {
     successRedirect: "/",
@@ -52,6 +50,7 @@ let initRoutes = app => {
 
   router.get("/contact/find-users/:keyword", auth.checkLoggedIn, contactValid.findUserContact , contact.findUsersContact);
   router.post("/contact/add-new", auth.checkLoggedIn, contact.addNew);
+  router.delete("/contact/remove-contact", auth.checkLoggedIn, contact.removeContact);
   router.delete("/contact/remove-request-contact-sent",  auth.checkLoggedIn, contact.removeRequestContactSent);
   router.put("/contact/approve-request-contact-received", auth.checkLoggedIn, contact.approveRequestContactReceived);
   router.delete("/contact/remove-request-contact-received", auth.checkLoggedIn, contact.removeREquestContactReceived);

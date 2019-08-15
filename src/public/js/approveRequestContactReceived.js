@@ -28,6 +28,8 @@ function approveRequestContactReceived() {
           increaseNumberNotifContact("count-contacts");
           decreaseNumberNotification("noti_contact_counter", 1);
 
+          removeContact();
+          // sau nay lam chuc nang chat thi se xoa tiep o phan chat
           socket.emit("approve-request-contact-received", {contactId: targetId});
         };
       }
@@ -76,6 +78,9 @@ socket.on("response-approve-request-contact-received", function(user) {
     </li>
   `;
   $("#contacts").find("ul").prepend(userInfoHTML);
+
+  removeContact();
+  // sau nay lam chuc nang chat thi se xoa tiep o phan chat
 
 
 });
