@@ -49,31 +49,50 @@ let addNew = (currentUserId, contactId) => {
   });
 };
 
-let removeRequestContactSent = (userId, contactId) => {
+let removeRequestContactSent = (currentUserId, contactId) => {
   return new Promise(async (resolve, reject) => {
-    let removeReq = await ContacModel.removeRequestContactSent(userId, contactId);
+    let removeReq = await ContacModel.removeRequestContactSent(currentUserId, contactId);
     if (removeReq.result.n === 0) {
       return reject(false);
     };
 
     // remove notification
     let notifTypeAddContact = NotificationModel.type.ADD_CONTACT
-    await NotificationModel.model.removeRequsetContactNotification(userId, contactId, notifTypeAddContact);
+    await NotificationModel.model.removeRequsetContactNotification(currentUserId, contactId, notifTypeAddContact);
     resolve(true);
   });
 };
 
-let removeRequestContactReceived = (userId, contactId) => {
+let removeRequestContactReceived = (currentUserId, contactId) => {
   return new Promise( async(resolve, reject) => {
-    let removeReq = await ContacModel.removeRequestContactReceived(userId, contactId);
+    let removeReq = await ContacModel.removeRequestContactReceived(currentUserId, contactId);
     if(removeReq.result.n === 0) {
       return reject(false);
     };
 
     // // remove notification
     // let notifTypeAddContact = NotificationModel.type.ADD_CONTACT
-    // await NotificationModel.model.removeRequsetContactNotification(userId, contactId, notifTypeAddContact);
+    // await NotificationModel.model.removeRequsetContactNotification(currentUserId, contactId, notifTypeAddContact);
     // resolve(true);
+
+    resolve(true);
+  });
+};
+
+let approveRequestContactReceived = (currentUserId, contactId) => {
+  return new Promise( async(resolve, reject) => {
+    let approveReq = await ContacModel.approveRequestContactReceived(currentUserId, contactId);
+    if (approveReq.nModified === 0) {
+      return reject(false);
+    };
+
+    // create notification
+    let notificationItem = {
+      senderId: currentUserId,
+      receiverId: contactId,
+      type: NotificationModel.type.APPROVE_CONTACT
+    };
+    await NotificationModel.model.createNew(notificationItem);
 
     resolve(true);
   });
@@ -217,6 +236,7 @@ module.exports = {
   addNew,
   removeRequestContactSent,
   removeRequestContactReceived,
+  approveRequestContactReceived,
   getContacts,
   getContactsSend,
   getContactsReceived,
