@@ -1,7 +1,5 @@
-
-
 function removeRequestContactSent() {
-    $(".user-remove-request-contact-sent").bind("click", function() {
+    $(".user-remove-request-contact-sent").unbind().on("click", function() {
       let targetId = $(this).data("uid");
       $.ajax({
         url: "/contact/remove-request-contact-sent",
@@ -11,6 +9,11 @@ function removeRequestContactSent() {
           if (data.success) {
             $("#find-user").find(`.user-remove-request-contact-sent[data-uid = ${targetId} ]`).hide();
             $("#find-user").find(`.user-add-new-contact[data-uid = ${targetId} ]`).css("display", "inline-block");
+
+            //at navbar
+            decreaseNumberNotification("noti_contact_counter", 1);
+
+            // at modal contact
             decreaseNumberNotifContact("count-request-contact-sent");
 
             // xoa o model tab dang cho xac nhan
@@ -30,10 +33,12 @@ function removeRequestContactSent() {
     // xoa o model tab yc ket ban
     $("#request-contact-received").find(`li[data-uid = ${user.id}]`).remove();
 
+    //at modal contact
     decreaseNumberNotifContact("count-request-contact-received");
 
-    decreaseNumberNotification("noti_contact_counter", -1);
-    decreaseNumberNotification("noti_counter", -1);
+    //at navbar
+    decreaseNumberNotification("noti_contact_counter", 1);
+    decreaseNumberNotification("noti_counter", 1); 
   });
 
   $(document).ready(function() {
