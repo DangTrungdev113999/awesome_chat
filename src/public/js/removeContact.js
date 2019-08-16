@@ -2,9 +2,11 @@ function removeContact() {
   $(".user-remove-contact")
     .unbind("click")
     .on("click", function() {
-
       let targetId = $(this).data("uid");
-      let username = $(this).parent().find("div.user-name p").text();
+      let username = $(this)
+        .parent()
+        .find("div.user-name p")
+        .text();
 
       Swal.fire({
         title: `Bạn có chắc chắn muốn xóa ${username} khỏi danh bạ?`,
@@ -15,10 +17,10 @@ function removeContact() {
         cancelButtonColor: "#ff7675",
         confirmButtonText: "xác nhận!",
         cancelButtonText: "Hủy."
-      }).then((result) => {
+      }).then(result => {
         if (!result.value) {
           return false;
-        };
+        }
         $.ajax({
           url: "/contact/remove-contact",
           type: "delete",
@@ -33,7 +35,6 @@ function removeContact() {
           }
         });
       });
-
     });
 }
 

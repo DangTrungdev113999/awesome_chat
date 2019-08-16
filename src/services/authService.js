@@ -1,19 +1,19 @@
-import UserModal from './../models/userModel';
-import bcrypt from 'bcrypt';
-import uuidv4 from 'uuid/v4';
-import {transErrors, transSuccess, transMail} from './../../lang/vi';
-import sendMail from './../config/mailer';
+import UserModal from "./../models/userModel";
+import bcrypt from "bcrypt";
+import uuidv4 from "uuid/v4";
+import { transErrors, transSuccess, transMail } from "./../../lang/vi";
+import sendMail from "./../config/mailer";
 
 let saltRounds = 7;
 
-let register =  (email, gender, password, protocol, host) => {
-  return new Promise( async (resolve, reject) => {
+let register = (email, gender, password, protocol, host) => {
+  return new Promise(async (resolve, reject) => {
     let userByEmail = await UserModal.findByEmail(email);
-    if(userByEmail) {
-      if(userByEmail.deletedAt !== null) {
+    if (userByEmail) {
+      if (userByEmail.deletedAt !== null) {
         return reject(transErrors.account_removed);
-      };
-      if(!userByEmail.local.isActive) {
+      }
+      if (!userByEmail.local.isActive) {
         return reject(transErrors.account_not_active);
       }
       return reject(transErrors.account_in_use);
@@ -21,7 +21,7 @@ let register =  (email, gender, password, protocol, host) => {
 
     let salt = bcrypt.genSaltSync(saltRounds);
     let userItem = {
-      username: email.split('@')[0],
+      username: email.split("@")[0],
       gender,
       local: {
         email,
@@ -32,7 +32,7 @@ let register =  (email, gender, password, protocol, host) => {
 
     let user = await UserModal.createNew(userItem);
     // send email
-    let linkVerify = `${protocol}://${host}/verify/${user.local.verifyToken}` 
+    let linkVerify = `${protocol}://${host}/verify/${user.local.verifyToken}`;
     // protocel = http || https, host = localhost:3000
     sendMail(email, transMail.subject, transMail.template(linkVerify))
       .then(success => {
@@ -43,22 +43,21 @@ let register =  (email, gender, password, protocol, host) => {
         await UserModal.removeById(user._id);
         console.log(error);
         return reject(transMail.send_fail);
-      })
+      });
   });
 };
 
-let verifyAccount = (token) => {
+let verifyAccount = token => {
   return new Promise(async (resolve, reject) => {
-    
     let userByToken = await UserModal.findByToken(token);
-    if(!userByToken) {
+    if (!userByToken) {
       return reject(transErrors.token_undefined);
     }
 
     await UserModal.verify(token);
     resolve(transSuccess.account_actived);
-  })
-}
+  });
+};
 
 module.exports = {
   register,
