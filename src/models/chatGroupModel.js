@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 let ChatGroupSchema = new Schema({
   name: String,
-  usersAmout: { type: Integer, min: 3, max: 1999 },
+  usersAmout: { type: Number, min: 3, max: 1999 },
   messagesAmount: { type: Number, default: 0 },
   userId: String,
   menbers: [{ userId: String }],
@@ -13,4 +13,12 @@ let ChatGroupSchema = new Schema({
   deletedAt: { type: Number, default: null }
 });
 
-module.exports = mongoose.Schema("chat-group", ChatGroupSchema);
+ChatGroupSchema.statics = {
+  getChatGroups(userId, limit) {
+    return this.find({
+      "menbers": {$elemMatch: {"userId": userId}}
+    }).sort({"createdAt": -1}).limit(limit).exec();
+  }
+}
+
+module.exports = mongoose.model("chat-group", ChatGroupSchema);
