@@ -1,6 +1,6 @@
-import {notification, contact} from './../services/index'
+import { notification, contact } from "./../services/index";
 
-let getHome =  async (req, res) => {
+let getHome = async (req, res) => {
   //only (10 item one time)
   let notifications = await notification.getNotifications(req.user._id);
 
@@ -16,22 +16,22 @@ let getHome =  async (req, res) => {
   // get contactsReceived (10 item one time)
   let contactsReceived = await contact.getContactsReceived(req.user._id);
 
-  // countContacts 
+  // countContacts
   let countAllContacts = await contact.countAllContacts(req.user._id);
 
   let countAllContactsSend = await contact.countAllContactsSend(req.user._id);
 
   let countAllContactsReceived = await contact.countAllContactsReceived(req.user._id);
 
-  return res.render('main/home/home', {
-    errors: req.flash('errors'),
-    success: req.flash('success'),
+  return res.render("main/home/home", {
+    errors: req.flash("errors"),
+    success: req.flash("success"),
     user: req.user,
     notifications,
     countNotifUnread,
     contacts,
     contactsSend,
-    contactsReceived, 
+    contactsReceived,
     countAllContacts,
     countAllContactsSend,
     countAllContactsReceived
@@ -40,4 +40,4 @@ let getHome =  async (req, res) => {
 
 module.exports = {
   getHome
-}
+};

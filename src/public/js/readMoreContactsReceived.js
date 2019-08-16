@@ -1,22 +1,30 @@
 $(document).ready(function() {
   $("#link-read-more-contact-received").bind("click", function() {
-    let skipNumber =  $("#request-contact-received").find("li").length;
+    let skipNumber = $("#request-contact-received").find("li").length;
 
     $("#link-read-more-contact-received").css("display", "none");
     $(".read-more-contact-received-loader").css("display", "inline-block");
 
     setTimeout(() => {
-      $.get(`/contact/read-more-contacts-received?skipNumber=${skipNumber}`, function(newContactUsersSend) {
-        if (!newContactUsersSend.length) {
-          alertify.notify("Bạn không còn lời mời kết bạn nào để xem thêm. !", "error", 6);
-          $("#link-read-more-contact-received").css("display", "inline-block");
-          $(".read-more-contact-received-loader").css("display", "none");
-          return false
-        };
-        newContactUsersSend.forEach( user => {
-          $("#request-contact-received")
-          .find("ul")
-          .append(`<li class="_contactList" data-uid="${user._id}">
+      $.get(
+        `/contact/read-more-contacts-received?skipNumber=${skipNumber}`,
+        function(newContactUsersSend) {
+          if (!newContactUsersSend.length) {
+            alertify.notify(
+              "Bạn không còn lời mời kết bạn nào để xem thêm. !",
+              "error",
+              6
+            );
+            $("#link-read-more-contact-received").css(
+              "display",
+              "inline-block"
+            );
+            $(".read-more-contact-received-loader").css("display", "none");
+            return false;
+          }
+          newContactUsersSend.forEach(user => {
+            $("#request-contact-received").find("ul")
+              .append(`<li class="_contactList" data-uid="${user._id}">
                     <div class="contactPanel">
                         <div class="user-avatar">
                             <img src="images/users/${user.avatar}" alt="">
@@ -38,14 +46,15 @@ $(document).ready(function() {
                         </div>
                     </div>
                 </li>`);
-        });
+          });
 
-        removeRequestContactReceived();
-        approveRequestContactReceived();
-  
-        $("#link-read-more-contact-received").css("display", "inline-block");
-        $(".read-more-contact-received-loader").css("display", "none");
-      })
+          removeRequestContactReceived();
+          approveRequestContactReceived();
+
+          $("#link-read-more-contact-received").css("display", "inline-block");
+          $(".read-more-contact-received-loader").css("display", "none");
+        }
+      );
     }, 300);
   });
 });
