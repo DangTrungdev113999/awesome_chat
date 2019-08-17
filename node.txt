@@ -11,7 +11,7 @@
 - find out more about: Object.values(); check by express-validator (express-validator npm); 
   req.protocal & req.get('host) in express; Schema.statics and Schema.methods,
   FormData in HTML5, data in HTML5, result of remove methods in mongoose, limit-sort-skip-methods in mongoose,
-  *unbine() and on() in jquery;
+  *unbine() and on() in jquery; string.substr() in js
 
 - find out more about npm: *bower,bcrypt, uuid, connect-flash,
   express-session, express-validator, experss-ejs-extend, bluebird, 
