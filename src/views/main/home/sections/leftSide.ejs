@@ -15,7 +15,7 @@
                 <ul class="people no-padding-start">
                     <% allConversations.forEach(function(conversation) { %>
                         <% if (conversation.menbers) { %>
-                            <a href="#uid_<%= conversation._id %>" class="room-chat">
+                            <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                                 <li class="person group-chat" data-chat="<%= conversation._id %>">
                                     <div class="left-avatar">
                                         <!-- <div class="dot"></div> -->
@@ -35,7 +35,7 @@
                                 </li>
                             </a>
                         <% } else { %>
-                            <a href="#uid_<%= conversation._id %>" class="room-chat">
+                            <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                                 <li class="person" data-chat="<%= conversation._id %>">
                                     <div class="left-avatar">
                                         <div class="dot"></div>
@@ -69,7 +69,7 @@
             <div class="tab-pane" id="user-chat">
                 <ul class="people no-padding-start">
                     <% userConversations.forEach(function(conversation) { %>
-                        <a href="#uid_<%= conversation._id %>" class="room-chat">
+                        <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                             <li class="person" data-chat="<%= conversation._id %>">
                                 <div class="left-avatar">
                                     <div class="dot"></div>
@@ -101,7 +101,7 @@
             <div class="tab-pane" id="group-chat">
                 <ul class="people no-padding-start">
                     <% groupConversations.forEach(function(conversation) { %>
-                        <a href="#uid_<%= conversation._id %>" class="room-chat">
+                        <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                             <li class="person group-chat" data-chat="<%= conversation._id %>">
                                 <div class="left-avatar">
                                     <!-- <div class="dot"></div> -->

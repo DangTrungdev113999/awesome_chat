@@ -44,8 +44,8 @@ let updateAvatar = (req, res) => {
       let userUpdate = await user.updateUser(req.user._id, updateUserItem);
       // after update mongoose will return old data
 
-      // remove old user image
-      await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`);
+      // no remove old user image because .... message image
+      // await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`);
 
       let result = {
         message: transSuccess.user_info_updeted,
