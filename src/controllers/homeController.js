@@ -29,7 +29,6 @@ let getHome = async (req, res) => {
   let allConversations = await getAllConversationItems.allConversations;
   // get all conversation with messages 30 item one time
   let allConversationWithMessages = await getAllConversationItems.allConversationWithMessages;
-
   return res.render("main/home/home", {
     errors: req.flash("errors"),
     success: req.flash("success"),

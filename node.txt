@@ -17,4 +17,5 @@
   express-session, express-validator, experss-ejs-extend, bluebird, 
   *passport, multer, *fs-extra, *socket.io, *cookie-parse, passport.socketio
 
-  - webside: https://loading.io/css/, https://flatuicolors.com
+  - webside: https://loading.io/css/, https://flatuicolors.com,
+   https://nicescroll.areaaperta.com/, https://stylehatch.github.io/photoset-grid/
