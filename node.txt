@@ -21,4 +21,4 @@
 
   - webside: https://loading.io/css/, https://flatuicolors.com,
    https://nicescroll.areaaperta.com/, https://stylehatch.github.io/photoset-grid/,
-   https://momentjs.com/
+   https://momentjs.com/, https://mervick.github.io/emojionearea/
