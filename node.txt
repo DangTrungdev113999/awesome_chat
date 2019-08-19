@@ -11,11 +11,14 @@
 - find out more about: Object.values(); check by express-validator (express-validator npm); 
   req.protocal & req.get('host) in express; Schema.statics and Schema.methods,
   FormData in HTML5, data in HTML5, result of remove methods in mongoose, limit-sort-skip-methods in mongoose,
-  *unbine() and on() in jquery; string.substr() in js, Buffer in js, base64 in js
+  *unbine() and on() in jquery; string.substr() in js, Buffer in js, base64 in js,
+  white-space: nowrap + text-overflow: ellipsis in css;
 
-- find out more about npm: *bower,bcrypt, uuid, connect-flash,
+- find out more about npm: *bower, *bcrypt, uuid, connect-flash,
   express-session, express-validator, experss-ejs-extend, bluebird, 
   *passport, multer, *fs-extra, *socket.io, *cookie-parse, passport.socketio
+  *moment
 
   - webside: https://loading.io/css/, https://flatuicolors.com,
-   https://nicescroll.areaaperta.com/, https://stylehatch.github.io/photoset-grid/
+   https://nicescroll.areaaperta.com/, https://stylehatch.github.io/photoset-grid/,
+   https://momentjs.com/
