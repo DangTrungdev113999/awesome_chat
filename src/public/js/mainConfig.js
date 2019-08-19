@@ -168,7 +168,6 @@ function changeScreenChat() {
 
     // config scroll at box findUserByIdchat right side when user click in one conversation
     let divId = $(this).find("li").data("chat");
-    console.log(divId);
     nineScrollRight(divId);
   })
 }
