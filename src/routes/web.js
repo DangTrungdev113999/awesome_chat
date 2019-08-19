@@ -4,9 +4,10 @@ import {
   auth,
   user,
   contact,
-  notification
+  notification,
+  message
 } from "./../controllers/index";
-import { authValid, userValid, contactValid } from "./../validation/index";
+import { authValid, userValid, contactValid, messageValid } from "./../validation/index";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
 import initPassportFacebook from "./../controllers/passportController/facebook";
@@ -140,6 +141,13 @@ let initRoutes = app => {
     "/notification/mark-all-as-read",
     auth.checkLoggedIn,
     notification.markAllAsRead
+  );
+
+  router.post(
+    "/message/add-new-text-emoji",
+    auth.checkLoggedIn,
+    messageValid.checkMessageLength,
+    message.addNewTextEmoji
   );
 
   return app.use("/", router);

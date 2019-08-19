@@ -21,6 +21,22 @@ ChatGroupSchema.statics = {
       .sort({ updatedAt: -1 })
       .limit(limit)
       .exec();
+  },
+
+  getChatGroupById(id) {
+    return this.findById(id).exec();
+  },
+
+  /**
+   * update chat group when has message
+   * @param {String} id 
+   * @param {Number} newMessageAmout 
+   */
+  udpateWhenHasNewMessage(id, newMessageAmout) {
+    return this.findByIdAndUpdate(id, {
+      messagesAmount: newMessageAmout,
+      updatedAt: Date.now()
+    }).exec();
   }
 };
 
