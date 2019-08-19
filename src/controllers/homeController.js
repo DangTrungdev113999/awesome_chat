@@ -24,9 +24,6 @@ let getHome = async (req, res) => {
 
   // get conversation 15 item one time
   let getAllConversationItems = await message.getAllConversationItems(req.user._id);
-  let userConversations = await getAllConversationItems.userConversations;
-  let groupConversations = await getAllConversationItems.groupConversations;
-  let allConversations = await getAllConversationItems.allConversations;
   // get all conversation with messages 30 item one time
 
   let allConversationWithMessages = await getAllConversationItems.allConversationWithMessages;
@@ -42,9 +39,6 @@ let getHome = async (req, res) => {
     countAllContacts,
     countAllContactsSend,
     countAllContactsReceived,
-    userConversations,
-    groupConversations,
-    allConversations,
     allConversationWithMessages,
     bufferToBase64,
     lastItemOfArray,

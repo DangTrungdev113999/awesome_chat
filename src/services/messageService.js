@@ -38,15 +38,22 @@ let getAllConversationItems = currentUserId => {
 
       // get message to apply to screen chat
       let  allConversationWithMessagesPromise = allConversations.map(async conversation => {
-
-        let getMessages = await MessageModel.model.getMessages(
-          currentUserId,
-          conversation._id,
-          LIMIT_MESSAGES_TAKEN
-        );
-        
         conversation = conversation.toObject();
-        conversation.messages = getMessages;
+
+        if (conversation.menbers) {
+          let getMessages = await MessageModel.model.getMessagesInGroup(
+            conversation._id, // id of group
+            LIMIT_MESSAGES_TAKEN
+          );
+          conversation.messages = getMessages;
+        } else {
+          let getMessages = await MessageModel.model.getMessagesInPersonal(
+            currentUserId, // send user
+            conversation._id, // received user
+            LIMIT_MESSAGES_TAKEN
+          );
+          conversation.messages = getMessages;
+        }
 
         return conversation;
       });
@@ -56,9 +63,6 @@ let getAllConversationItems = currentUserId => {
       allConversationWithMessages = _.sortBy(allConversationWithMessages, item => -item.updatedAt);
 
       resolve({
-        userConversations,
-        groupConversations,
-        allConversations,
         allConversationWithMessages
       });
     } catch (error) {
