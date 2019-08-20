@@ -1537,3 +1537,13 @@ label:focus,
   width: 100%;
   height: 100%;
 }
+
+.show-number-menber,
+.show-number-messages {
+  color:#34495e !important;
+}
+
+.message-time-realtime {
+  color: #e74c3c !important;
+  font-weight:bold;
+}

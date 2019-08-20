@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 let ChatGroupSchema = new Schema({
   name: String,
-  usersAmout: { type: Number, min: 3, max: 1999 },
+  userAmount: { type: Number, min: 3, max: 1999 },
   messagesAmount: { type: Number, default: 0 },
   userId: String,
   menbers: [{ userId: String }],
@@ -37,6 +37,12 @@ ChatGroupSchema.statics = {
       messagesAmount: newMessageAmout,
       updatedAt: Date.now()
     }).exec();
+  },
+
+  getChatGroupIdsByUser(userId) {
+    return this.find({
+      menbers: {$elemMatch: {userId: userId}}
+    }, {_id: 1}).exec();
   }
 };
 

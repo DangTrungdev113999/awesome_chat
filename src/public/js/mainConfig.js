@@ -166,17 +166,25 @@ function changeTypeChat() {
 
 function changeScreenChat() {
   $(".room-chat").unbind("click").on("click", function() {
+    let divId = $(this).find("li").data("chat");
     $(".person").removeClass('active');
-    $(this).find("li").addClass("active");
+    $(`.person[data-chat=${divId}]`).addClass("active");
 
     $(this).tab("show");
 
     // config scroll at box findUserByIdchat right side when user click in one conversation
-    let divId = $(this).find("li").data("chat");
     nineScrollRight(divId);
 
     enableEmojioneArea(divId);
   })
+}
+
+function convertEmoji() {
+  $(".convert-emoji").each(function() {
+    var original = $(this).html();
+    var converted = emojione.toImage(original);
+    $(this).html(converted);
+  });
 }
 
 $(document).ready(function() {
@@ -214,5 +222,9 @@ $(document).ready(function() {
 
   // click to the first conversation when f5 web
   $("ul.people").find("a")[0].click();
+
+  convertEmoji();
+
+
 });
 
