@@ -7,7 +7,7 @@ import { transErrors } from "./../../lang/vi";
 import { app } from "./../config/app";
 
 const LINIT_CONVERSATIONS_TAKEN = 15;
-const LIMIT_MESSAGES_TAKEN = 30;
+const LIMIT_MESSAGES_TAKEN = 35;
 
 let getAllConversationItems = currentUserId => {
   return new Promise(async (resolve, reject) => {
@@ -48,14 +48,14 @@ let getAllConversationItems = currentUserId => {
               conversation._id, // id of group
               LIMIT_MESSAGES_TAKEN
             );
-            conversation.messages = getMessages;
+            conversation.messages = _.reverse(getMessages);
           } else {
             let getMessages = await MessageModel.model.getMessagesInPersonal(
               currentUserId, // send user
               conversation._id, // received user
               LIMIT_MESSAGES_TAKEN
             );
-            conversation.messages = getMessages;
+            conversation.messages = _.reverse(getMessages);
           }
 
           return conversation;

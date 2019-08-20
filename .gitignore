@@ -63,3 +63,5 @@ typings/
 sh/env.sh
 
 src/public/bower_components
+
+src/public/emojione/
