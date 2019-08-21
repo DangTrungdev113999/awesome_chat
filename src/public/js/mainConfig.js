@@ -179,7 +179,11 @@ function changeScreenChat() {
     // config scroll at box findUserByIdchat right side when user click in one conversation
     nineScrollRight(divId);
 
+    // turn on emoji
     enableEmojioneArea(divId);
+
+    // turn on listen DOM to chat image
+    imageChat(divId);
   })
 }
 

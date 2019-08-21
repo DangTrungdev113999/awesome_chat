@@ -150,6 +150,12 @@ let initRoutes = app => {
     message.addNewTextEmoji
   );
 
+  router.post(
+    "/message/add-new-image",
+    auth.checkLoggedIn,
+    message.addNewImage
+  );
+
   return app.use("/", router);
 };
 
