@@ -8,7 +8,7 @@ import {
  * @param {*} io from socket.io lb
  */
 
-let chatTextEmoji = io => {
+let typingOn = io => {
   let clients = {};
 
   io.on("connection", socket => {
@@ -19,12 +19,11 @@ let chatTextEmoji = io => {
       clients = pushSocketIdToArray(clients, group._id, socket.id);
     });
 
-    socket.on("chat-text-emoji", data => {
+    socket.on("user-is-typing", data => {
       if (data.groupId) {
         let response = {
           currentGroupId: data.groupId,
           currentUserId: socket.request.user._id,
-          message: data.message
         };
 
         if (clients[data.groupId]) {
@@ -32,7 +31,7 @@ let chatTextEmoji = io => {
             clients,
             data.groupId,
             io,
-            "response-chat-text-emoji",
+            "response-user-is-typing",
             response
           );
         }
@@ -41,15 +40,13 @@ let chatTextEmoji = io => {
       if (data.contactId) {
         let response = {
           currentUserId: socket.request.user._id,
-          message: data.message
         };
-
         if (clients[data.contactId]) {
           emitNotifyToArray(
             clients,
             data.contactId,
             io,
-            "response-chat-text-emoji",
+            "response-user-is-typing",
             response
           );
         }
@@ -69,4 +66,4 @@ let chatTextEmoji = io => {
   });
 };
 
-module.exports = chatTextEmoji;
+module.exports = typingOn;

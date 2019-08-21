@@ -41,6 +41,10 @@ function enableEmojioneArea(divId) {
       // Bật lắng nghe DOM cho việc lắng nghe tin nhắn văn bản hặc emoji
       click: function() {
         textAndEmojiChat(divId);
+        typingOn(divId);
+      },
+      blur: function() {
+        typingOff(divId);
       }
     },
   });
