@@ -1,0 +1,72 @@
+import {
+  pushSocketIdToArray,
+  emitNotifyToArray,
+  reoveSocketIdFromArray
+} from "./../../helper/socketHelper";
+/**
+ *
+ * @param {*} io from socket.io lb
+ */
+
+let chatAttachment = io => {
+  let clients = {};
+
+  io.on("connection", socket => {
+    let currentUserId = socket.request.user._id;
+
+    clients = pushSocketIdToArray(clients, currentUserId, socket.id);
+    socket.request.user.ChatGroupIds.forEach(group => {
+      clients = pushSocketIdToArray(clients, group._id, socket.id);
+    });
+
+    socket.on("chat-attachment", data => {
+      if (data.groupId) {
+        let response = {
+          currentGroupId: data.groupId,
+          currentUserId: socket.request.user._id,
+          message: data.message
+        };
+
+        if (clients[data.groupId]) {
+          emitNotifyToArray(
+            clients,
+            data.groupId,
+            io,
+            "response-chat-attachment",
+            response
+          );
+        }
+      }
+
+      if (data.contactId) {
+        let response = {
+          currentUserId: socket.request.user._id,
+          message: data.message
+        };
+
+        if (clients[data.contactId]) {
+          emitNotifyToArray(
+            clients,
+            data.contactId,
+            io,
+            "response-chat-attachment",
+            response
+          );
+        }
+
+      }
+
+    });
+
+    socket.on("disconnect", () => {
+      // remove socket when user user disconnect
+      clients = reoveSocketIdFromArray(clients, currentUserId, socket.id);
+      socket.request.user.ChatGroupIds.forEach(group => {
+        clients = reoveSocketIdFromArray(clients, group._id, socket.id);
+      });
+    });
+    
+  });
+};
+
+module.exports = chatAttachment;
