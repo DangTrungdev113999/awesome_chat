@@ -12,7 +12,10 @@
   req.protocal & req.get('host) in express; Schema.statics and Schema.methods,
   FormData in HTML5, data in HTML5, result of remove methods in mongoose, limit-sort-skip-methods in mongoose,
   *unbine() and on() in jquery; string.substr() in js, Buffer in js, base64 in js,
-  white-space: nowrap + text-overflow: ellipsis in css; jquery event namespace
+  white-space: nowrap + text-overflow: ellipsis in css; jquery event namespace,
+  bufferToBase64 for client: (- ArrayBuffer to base64 encoded string https://stackoverflow.com/a/42334410 ),
+  
+
 
 - find out more about npm: *bower, *bcrypt, uuid, connect-flash,
   express-session, express-validator, experss-ejs-extend, bluebird, 

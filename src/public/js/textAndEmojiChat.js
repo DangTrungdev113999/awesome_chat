@@ -97,9 +97,8 @@ function textAndEmojiChat(divId) {
 
 $(document).ready(function() {
 
-  let divId = "";
-
   socket.on("response-chat-text-emoji", function(response) {
+    let divId = "";
     // step 1 : handle  message data before show
     let messageOfYou = $(
       `<div class="convert-emoji bubble you" data-mess-id="${response.message._id}"></div>`
@@ -157,7 +156,5 @@ $(document).ready(function() {
     $(`.person[data-chat=${divId}]`).trigger("dangtrungdev.moveConversationToTheTop");
 
   });
-
-  
 
 });

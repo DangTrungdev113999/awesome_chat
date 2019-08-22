@@ -187,7 +187,7 @@ let addNewImage = (sender, receiverId, messageVal, isChatGroup) => {
         };
 
         let imageBuffer = await fsExtra.readFile(messageVal.path);
-        let imageContentType = messageVal.mimeType;
+        let imageContentType = messageVal.mimetype;
         let imageName = messageVal.originalname;
 
         let newMessageItem = {
@@ -223,7 +223,7 @@ let addNewImage = (sender, receiverId, messageVal, isChatGroup) => {
         };
 
         let imageBuffer = await fsExtra.readFile(messageVal.path);
-        let imageContentType = messageVal.mimeType;
+        let imageContentType = messageVal.mimetype;
         let imageName = messageVal.originalname;
 
         let newMessageItem = {
