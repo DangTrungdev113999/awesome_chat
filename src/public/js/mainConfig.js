@@ -175,6 +175,13 @@ function changeTypeChat() {
   })
 }
 
+function bufferToBase64(buffer) {
+  return  btoa(
+    new Uint8Array(buffer)
+      .reduce((data, byte) => data + String.fromCharCode(byte), '')
+  );
+};
+
 function changeScreenChat() {
   $(".room-chat").unbind("click").on("click", function() {
     let divId = $(this).find("li").data("chat");
@@ -191,6 +198,9 @@ function changeScreenChat() {
 
     // turn on listen DOM to chat image
     imageChat(divId);
+
+// turn on listen DOM to chat attachment
+    attachmentChat(divId);
   })
 }
 

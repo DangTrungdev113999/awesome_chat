@@ -1,7 +1,7 @@
 export const tranValidation = {
   email_incorrect: "email phải có dạng example@gmail.com!",
   gender_incorrect: "tại sao bạn lại không có giới tính!",
-  password_incorrect: "mật khẩu phải bao gồm 8 kí tự, chữ hoa, chữ thường, số và kí tự đặc biệt!",
+  password_incorrect: "mật khẩu phải bao gồm ít nhất 8 kí tự, chữ hoa, chữ thường, số và kí tự đặc biệt!",
   password_confirmation_incorrect: "Nhập lại mật khẩu!",
   update_username: 'Tên chỉ được phép giới hạn đến 3-17 kí tự, không được phép chứa kí tự đặc biệt !',
   update_gender: 'OMG…! Bạn đang muốn hack à.!',
@@ -25,6 +25,7 @@ export const transErrors = {
   conversation_not_found: "Cuộc trò chuyện không tồn tại",
   image_message_type: "Kiểu file không hợp lệ chỉ chấp nhận jpg & png",
   image_message_size: "Ảnh vượt quá dung lượng 1MB",
+  attachment_message_size: "tệp tin đính kèm vượt quá dung lượng 1MB",
 }
 
 export const transSuccess = {
