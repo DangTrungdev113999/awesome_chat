@@ -14,7 +14,7 @@
   *unbine() and on() in jquery; string.substr() in js, Buffer in js, base64 in js,
   white-space: nowrap + text-overflow: ellipsis in css; jquery event namespace,
   bufferToBase64 for client: (- ArrayBuffer to base64 encoded string https://stackoverflow.com/a/42334410 ),
-  module event trung quan dev
+  module event trung quan dev, Wep RTC & peer to peer
   
 
 
@@ -28,3 +28,12 @@
    https://momentjs.com/, https://mervick.github.io/emojionearea/,
    https://www.w3schools.com/icons/fontawesome_icons_webapp.asp ,
    https://bower.io
+
+// create video to steam
+function playVideoStream(videoTagId, steam) {
+  let video = document.getElementById(videoTagId);
+  video.srcObject = steam;
+  video.onloadeddata = function() {
+    video.play();
+  };
+}
