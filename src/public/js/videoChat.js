@@ -10,7 +10,6 @@ function videoChat(divId) {
     
     // step 01: of caller: check user 2 online? 
     socket.emit("caller-check-listener-online-or-not", dataToEmit);
-    
   });
 };
 
