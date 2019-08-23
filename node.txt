@@ -14,6 +14,7 @@
   *unbine() and on() in jquery; string.substr() in js, Buffer in js, base64 in js,
   white-space: nowrap + text-overflow: ellipsis in css; jquery event namespace,
   bufferToBase64 for client: (- ArrayBuffer to base64 encoded string https://stackoverflow.com/a/42334410 ),
+  module event trung quan dev
   
 
 
