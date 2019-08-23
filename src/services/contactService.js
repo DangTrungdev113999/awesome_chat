@@ -244,6 +244,23 @@ let readMoreContactsReceived = (currentUserId, skipNumberContactsReceived) => {
   });
 };
 
+let searchFriends = (currentUserId, keyword) => {
+  return new Promise( async (resolve, reject) => {
+    let friendIds = [];
+    let friends = await ContacModel.getFriends(currentUserId);
+
+    friends.forEach((item) => {
+      friendIds.push(item.userId);
+      friendIds.push(item.contactId)
+    });
+
+    friendIds = _.unionBy(friendIds);
+    friendIds = friendIds.filter(userId => userId != currentUserId);
+    let users = await UserModel.findAllToGroupChat(friendIds, keyword);
+    
+    resolve(users);
+  });
+};
 module.exports = {
   findUsersContact,
   addNew,
@@ -259,5 +276,6 @@ module.exports = {
   countAllContactsReceived,
   readMoreContacts,
   readMoreContactsSend,
-  readMoreContactsReceived
+  readMoreContactsReceived,
+  searchFriends
 };
