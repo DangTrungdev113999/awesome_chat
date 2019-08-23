@@ -83,10 +83,9 @@
                                     <input type="file" id="attachment-chat-<%= conversation._id %>" name="my-attachment-chat" class="attachment-chat chat-in-group" data-chat="<%= conversation._id %>">
                                     <i class="fa fa-paperclip"></i>
                                 </label>
-                                <a href="#streamModal" id="video-chat" class="video-chat" data-chat="" data-toggle="modal">
+                                <a href="javascript:void(0)" id="video-chat-group">
                                     <i class="fa fa-video-camera"></i>
                                 </a>
-                                <input type="hidden" id="peer-id" value="">
                             </div>
                         </div>
                     </div>
@@ -151,7 +150,7 @@
                                     <input type="file" id="attachment-chat-<%= conversation._id %>" name="my-attachment-chat" class="attachment-chat" data-chat="<%= conversation._id %>">
                                     <i class="fa fa-paperclip"></i>
                                 </label>
-                                <a href="#streamModal" id="video-chat" class="video-chat" data-chat="" data-toggle="modal">
+                                <a href="javascript:void(0)" id="video-chat-<%= conversation._id %>" class="video-chat" data-chat="<%= conversation._id %>">
                                     <i class="fa fa-video-camera"></i>
                                 </a>
                                 <input type="hidden" id="peer-id" value="">

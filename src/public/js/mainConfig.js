@@ -199,8 +199,11 @@ function changeScreenChat() {
     // turn on listen DOM to chat image
     imageChat(divId);
 
-// turn on listen DOM to chat attachment
+    // turn on listen DOM to chat attachment
     attachmentChat(divId);
+    
+    // turn on listen DOM to chat video
+    videoChat(divId);
   })
 }
 
@@ -250,6 +253,11 @@ $(document).ready(function() {
 
   convertEmoji();
 
-
+  $("#video-chat-group").bind("click", function() {
+    alertify.notify(
+      "Chức năng này đang phát triển, vui lòng thẻ với trò chuyện cá nhân. xin cảm ơn.....", 
+      "warning",
+      6)
+  })
 });
 

@@ -12,9 +12,13 @@ import initSocket from './sockets/index';
 
 import cookieParser from 'cookie-parser';
 import configSocketio from './config/socketio';
-
+import events from "events";
+import * as configApp from "./config/app";
 // init app
 let app = express();
+
+// set max connection event listener
+events.EventEmitter.defaultMaxListeners = configApp.app.max_event_listener;
 
 // init server with socket.io & express app
 let server = http.createServer(app);
