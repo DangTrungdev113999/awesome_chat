@@ -4,32 +4,33 @@ import request from "request";
 
 let getICETurnServer = () => {
   return new Promise( async(resolve, reject) => {
-    // Node Get ICE STUN and TURN list
-    let o = {
-      format: "urls"
-    };
+    // // Node Get ICE STUN and TURN list
+    // let o = {
+    //   format: "urls"
+    // };
 
-    let bodyString = JSON.stringify(o);
+    // let bodyString = JSON.stringify(o);
 
-    let options = {
-      url: "https://global.xirsys.net/_turn/ProjectNodejs",
-      method: "PUT",
-      headers: {
-        "Authorization": "Basic " + Buffer.from("dangtrungdev113999:56127482-c58b-11e9-9093-0242ac110003").toString("base64"),
-        "Content-Type": "application/json",
-        "Content-Length": bodyString.length
-      }
-    };
+    // let options = {
+    //   url: "https://global.xirsys.net/_turn/ProjectNodejs",
+    //   method: "PUT",
+    //   headers: {
+    //     "Authorization": "Basic " + Buffer.from("dangtrungdev113999:56127482-c58b-11e9-9093-0242ac110003").toString("base64"),
+    //     "Content-Type": "application/json",
+    //     "Content-Length": bodyString.length
+    //   }
+    // };
 
-    // call a  request to get ICCE list of turn server
-    request(options, (error, response, body) => {
-      if (error) {
-        console.log("Error when get ICCE list" + error);
-        return reject(error);
-      } 
-      let bodyJson = JSON.parse(body);
-      resolve(bodyJson.v.iceServers);
-    });
+    // // call a  request to get ICCE list of turn server
+    // request(options, (error, response, body) => {
+    //   if (error) {
+    //     console.log("Error when get ICCE list" + error);
+    //     return reject(error);
+    //   } 
+    //   let bodyJson = JSON.parse(body);
+    //   resolve(bodyJson.v.iceServers);
+    // });
+    resolve([]);
 
   });
 }
