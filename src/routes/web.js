@@ -133,6 +133,13 @@ let initRoutes = app => {
   );
 
   router.get(
+    "/contact/search-friends/:keyword",
+    auth.checkLoggedIn,
+    contactValid.searchFriends,
+    contact.searchFriends
+  );
+
+  router.get(
     "/notification/read-more",
     auth.checkLoggedIn,
     notification.readMore
