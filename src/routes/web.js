@@ -5,9 +5,10 @@ import {
   user,
   contact,
   notification,
-  message
+  message,
+  groupChat
 } from "./../controllers/index";
-import { authValid, userValid, contactValid, messageValid } from "./../validation/index";
+import { authValid, userValid, contactValid, messageValid , groupChatValid} from "./../validation/index";
 import passport from "passport";
 import initPassportLocal from "./../controllers/passportController/local";
 import initPassportFacebook from "./../controllers/passportController/facebook";
@@ -168,6 +169,13 @@ let initRoutes = app => {
     auth.checkLoggedIn,
     message.addNewAttachment
   );
+
+  router.post(
+    "/group/chat/add-new",
+    auth.checkLoggedIn,
+    groupChatValid.addNewGroup,
+    groupChat.addNewGroup
+  )
 
   return app.use("/", router);
 };
