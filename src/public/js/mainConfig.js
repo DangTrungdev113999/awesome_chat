@@ -126,33 +126,7 @@ function gridPhotos(layoutNumber) {
 }
 
 
-function addFriendsToGroup() {
-  $('ul#group-chat-friends').find('div.add-user').bind('click', function() {
-    let uid = $(this).data('uid');
-    $(this).remove();
-    let html = $('ul#group-chat-friends').find('div[data-uid=' + uid + ']').html();
 
-    let promise = new Promise(function(resolve, reject) {
-      $('ul#friends-added').append(html);
-      $('#groupChatModal .list-user-added').show();
-      resolve(true);
-    });
-    promise.then(function(success) {
-      $('ul#group-chat-friends').find('div[data-uid=' + uid + ']').remove();
-    });
-  });
-}
-
-function cancelCreateGroup() {
-  $('#cancel-group-chat').bind('click', function() {
-    $('#groupChatModal .list-user-added').hide();
-    if ($('ul#friends-added>li').length) {
-      $('ul#friends-added>li').each(function(index) {
-        $(this).remove();
-      });
-    }
-  });
-}
 
 function flashMasterNotify() {
   let notify = $(".master-success-message").text();
@@ -233,11 +207,7 @@ $(document).ready(function() {
   // Tham số chỉ được phép trong khoảng từ 1 đến 5
   gridPhotos(5);
 
-  // Thêm người dùng vào danh sách liệt kê trước khi tạo nhóm trò chuyện
-  addFriendsToGroup();
 
-  // Action hủy việc tạo nhóm trò chuyện
-  cancelCreateGroup();
 
   // Flash message o man hinh master
   flashMasterNotify();

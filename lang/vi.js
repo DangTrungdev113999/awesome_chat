@@ -8,7 +8,9 @@ export const tranValidation = {
   update_address: 'Đia chỉ giới hạn từ  3 – 30 kí tự.!',
   update_phone: 'Số điện thoại bắt đầu bằng 0 và kết thúc, giới hạn từ 10 đén 11 số.!',
   find_users_contact: "Không cho phép kí tự đặc biệt, chỉ cho phép chứ số và khoảng trống",
-  message_text_emoji_incorrect: "tin nhắn không hợp lệ đăm bảo ít nhất 1 kí tự,  tối đa 500"
+  message_text_emoji_incorrect: "tin nhắn không hợp lệ đăm bảo ít nhất 1 kí tự,  tối đa 500",
+  add_new_group_users_incorrect: "Nhóm tối thiểu phải có tối đa 3 thành viên",
+  add_new_group_name_incorrect: "Vui lòng nhập tên nhóm trò chuyện từ 1 đến 30 kí tự và không chứa các kí tự đặc biệt"
 }
 
 export const transErrors = {

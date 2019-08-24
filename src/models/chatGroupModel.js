@@ -14,6 +14,10 @@ let ChatGroupSchema = new Schema({
 });
 
 ChatGroupSchema.statics = {
+  createNew(item) {
+    return this.create(item);
+  },
+  
   getChatGroups(userId, limit) {
     return this.find({
       menbers: { $elemMatch: { userId: userId } }
