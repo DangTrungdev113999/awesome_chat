@@ -8,7 +8,7 @@ import {
  * @param {*} io from socket.io lb
  */
 
-let userOnlineOffline = io => {
+let newGroupChat = io => {
   let clients = {};
 
   io.on("connection", socket => {
@@ -19,21 +19,22 @@ let userOnlineOffline = io => {
       clients = pushSocketIdToArray(clients, group._id, socket.id);
     });
 
-    // when has new group chat
+
     socket.on("new-group-created", data => {
       clients = pushSocketIdToArray(clients, data.groupChat._id, socket.id);
-    });
-    socket.on("menber-received-group-chat", data =>  {
-      clients = pushSocketIdToArray(clients, data.groupChatId, socket.id);
+      let response = {
+        groupChat: data.groupChat
+      };
+
+      data.groupChat.menbers.forEach(menber => {
+        if (clients[menber.userId] && menber.userId != socket.request.user._id) {
+          emitNotifyToArray(clients, menber.userId, io, "response-new-group-created", response);
+        }
+      });
     });
 
-    socket.on("check-status", () => {
-      let listUserOnline = Object.keys(clients);
-      // step 01: Emit to user after login or f5 web page
-      socket.emit("server-send-when-list-user-online", listUserOnline);
-  
-      // step 02: Emit to all another user when has user online
-      socket.broadcast.emit("server-send-when-new-user-online", socket.request.user._id);
+    socket.on("menber-received-group-chat", data =>  {
+      clients = pushSocketIdToArray(clients, data.groupChatId, socket.id);
     });
 
     socket.on("disconnect", () => {
@@ -42,11 +43,9 @@ let userOnlineOffline = io => {
       socket.request.user.ChatGroupIds.forEach(group => {
         clients = reoveSocketIdFromArray(clients, group._id, socket.id);
       });
-      //step 03:  Emit to all another user when has user offline
-      socket.broadcast.emit("server-send-when-new-user-offline", socket.request.user._id);
     });
     
   });
 };
 
-module.exports = userOnlineOffline;
+module.exports = newGroupChat;
