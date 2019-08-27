@@ -56,6 +56,7 @@ MessageSchema.statics = {
       .exec();
   },
 
+
 };
 
 const MESSAGE_CONVERSATION_TYPES = {
