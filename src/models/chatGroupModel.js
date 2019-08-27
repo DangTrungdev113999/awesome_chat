@@ -47,6 +47,17 @@ ChatGroupSchema.statics = {
     return this.find({
       menbers: {$elemMatch: {userId: userId}}
     }, {_id: 1}).exec();
+  },
+
+
+  readMoreChatGroups(userId, skip, limit) {
+    return this.find({
+      menbers: { $elemMatch: { userId: userId } }
+    })
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec();
   }
 };
 

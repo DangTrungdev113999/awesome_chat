@@ -170,6 +170,12 @@ let initRoutes = app => {
     message.addNewAttachment
   );
 
+  router.get(
+    "/message/read-more-all-chat",
+    auth.checkLoggedIn,
+    message.readMoreAllChat
+  );
+
   router.post(
     "/group/chat/add-new",
     auth.checkLoggedIn,

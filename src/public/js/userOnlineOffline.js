@@ -4,7 +4,6 @@ socket.emit("check-status");
 
 // step 01: 
 socket.on("server-send-when-list-user-online", function(listUserIds) {
-  console.log(listUserIds);
   listUserIds.forEach(userId => {
     $(`.person[data-chat=${userId}]`).find("div.dot").addClass("online");
     $(`.person[data-chat=${userId}]`).find("img").addClass("avatar-online");

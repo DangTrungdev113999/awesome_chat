@@ -2,8 +2,14 @@ import { validationResult } from "express-validator/check";
 import { message } from "./../services/index";
 import multer from "multer";
 import { app } from "./../config/app";
-import { transErrors, transSuccess } from "./../../lang/vi";
-import fsExtra from "fs-extra"
+import { transErrors } from "./../../lang/vi";
+import fsExtra from "fs-extra";
+import ejs from "ejs";
+import {lastItemOfArray, convertTimestampToHumanTime, bufferToBase64} from "./../helper/clientHelper";
+import {promisify} from "util";
+
+// make ejs function renderFile available with asycn await
+const renderFile = promisify(ejs.renderFile).bind(ejs);
 
 //handle text & emoji chat
 let addNewTextEmoji = async (req, res) => {
@@ -164,8 +170,62 @@ let addNewAttachment = (req, res) => {
 
 };
 
+let readMoreAllChat = async (req, res) => {
+  try {
+    let skipPersonal = +(req.query.skipPersonal);
+    let skipGroup = +(req.query.skipGroup);
+
+    let newAllConversations = await message.readMoreAllChat(
+      req.user._id,
+      skipPersonal,
+      skipGroup
+    );
+    
+    let dataToRender = {
+      newAllConversations,
+      lastItemOfArray,
+      convertTimestampToHumanTime,
+      bufferToBase64,
+      user: req.user
+    };
+
+    let leftSideData = await renderFile(
+      "src/views/main/readMoreConversations/_leftSide.ejs", 
+      dataToRender
+      );
+
+    let rightSideData = await renderFile(
+      "src/views/main/readMoreConversations/_rightSide.ejs", 
+      dataToRender
+      );
+
+    let imageModalData = await renderFile(
+      "src/views/main/readMoreConversations/_imageModal.ejs", 
+      dataToRender
+      );
+
+    let attachmentModalData = await renderFile(
+      "src/views/main/readMoreConversations/_attchmentModal.ejs", 
+      dataToRender
+      );
+
+
+
+    return res.status(200).send({
+      leftSideData,
+      rightSideData,
+      imageModalData,
+      attachmentModalData
+    });
+
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
 module.exports = {
   addNewTextEmoji,
   addNewImage,
-  addNewAttachment
+  addNewAttachment,
+  readMoreAllChat
 };

@@ -21,13 +21,14 @@
 - find out more about npm: *bower, *bcrypt, uuid, connect-flash,
   express-session, express-validator, experss-ejs-extend, bluebird, 
   *passport, multer, *fs-extra, *socket.io, *cookie-parse, passport.socketio
-  *moment
+  *moment, promisify
 
   - webside: https://loading.io/css/, https://flatuicolors.com,
    https://nicescroll.areaaperta.com/, https://stylehatch.github.io/photoset-grid/,
    https://momentjs.com/, https://mervick.github.io/emojionearea/,
    https://www.w3schools.com/icons/fontawesome_icons_webapp.asp ,
    https://bower.io
+   https://hackernoon.com/node8s-util-promisify-is-so-freakin-awesome-1d90c184bf44
 
 // create video to steam
 function playVideoStream(videoTagId, steam) {

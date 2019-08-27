@@ -1547,3 +1547,38 @@ label:focus,
   color: #e74c3c !important;
   font-weight:bold;
 }
+
+/*  */
+.read-more-all-chat-loader {
+  display: none;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-top: 10px;
+}
+.read-more-all-chat-loader div {
+  position: absolute;
+  border: 4px solid #34495e;
+  opacity: 1;
+  border-radius: 50%;
+  animation: read-more-all-chat-loader 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.read-more-all-chat-loader div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes read-more-all-chat-loader {
+  0% {
+    top: 28px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+    width: 58px;
+    height: 58px;
+    opacity: 0;
+  }
+}
