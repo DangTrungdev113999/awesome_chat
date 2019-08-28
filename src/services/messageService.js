@@ -7,7 +7,7 @@ import { transErrors } from "./../../lang/vi";
 import { app } from "./../config/app";
 import fsExtra from "fs-extra"
 
-const LINIT_CONVERSATIONS_TAKEN = 1;
+const LINIT_CONVERSATIONS_TAKEN = 15;
 const LIMIT_MESSAGES_TAKEN = 35;
 
 let getAllConversationItems = currentUserId => {
@@ -415,11 +415,42 @@ let readMoreAllChat = (currentUserId, shipPersonal, skipGroup) => {
   });
 };
 
+let readMore = (currentUserId, skipMessage, targetId, chatInGroup) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // mesage in group
+      if (chatInGroup) {
+        let getMessages = await MessageModel.model.readMoreMessagesInGroup(
+          targetId, // id of group
+          skipMessage,
+          LIMIT_MESSAGES_TAKEN
+        );
+        getMessages = _.reverse(getMessages);
+        return resolve(getMessages);
+      }
+      
+      // message in personal 
+      let getMessages = await MessageModel.model.readMoreMessagesInPersonal(
+        currentUserId, // send user
+        targetId, // received user
+        skipMessage,
+        LIMIT_MESSAGES_TAKEN
+      );
+      getMessages = _.reverse(getMessages);
+      return resolve(getMessages);
+
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   getAllConversationItems,
   getAllConversationItems,
   addNewTextEmoji,
   addNewImage,
   addNewAttachment,
-  readMoreAllChat
+  readMoreAllChat,
+  readMore
 };

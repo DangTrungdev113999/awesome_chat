@@ -40,7 +40,7 @@
                                 </span>
                         </div>
                         <div class="content-chat">
-                            <div class="chat" data-chat="<%= conversation._id %>">
+                            <div class="chat chat-in-group" data-chat="<%= conversation._id %>">
                                 <% conversation.messages.forEach(function(message) { %>
                                     <% if (message.messageType === "text") { %>
                                         <div class="convert-emoji bubble <% if (message.senderId == user._id) { %>  me <% } else { %> you <% } %>" data-mess-id="<%= message._id %>">
