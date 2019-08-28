@@ -176,6 +176,13 @@ let initRoutes = app => {
     message.readMoreAllChat
   );
 
+  router.get(
+    "/message/read-more",
+    auth.checkLoggedIn,
+    message.readMore
+  );
+
+
   router.post(
     "/group/chat/add-new",
     auth.checkLoggedIn,
