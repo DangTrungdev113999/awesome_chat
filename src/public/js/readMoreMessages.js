@@ -1,5 +1,5 @@
 function readMoreMessage() {
-  $(".right .chat").scroll(function() {
+  $(".right .chat").unbind("scroll").on("scroll",function() {
 
     // get the fist message
     let firstMessage = $(this).find(".bubble:first");

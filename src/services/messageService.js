@@ -7,7 +7,7 @@ import { transErrors } from "./../../lang/vi";
 import { app } from "./../config/app";
 import fsExtra from "fs-extra"
 
-const LINIT_CONVERSATIONS_TAKEN = 15;
+const LINIT_CONVERSATIONS_TAKEN = 1;
 const LIMIT_MESSAGES_TAKEN = 35;
 
 let getAllConversationItems = currentUserId => {
