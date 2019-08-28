@@ -26,8 +26,8 @@ $(document).ready(function() {
         // step 03: handle right side
         $("#screen-chat").append(data.rightSideData);
 
-        // step 04: call function changeTypeChat();
-        changeTypeChat() 
+        // step 04: call function changeScreenChat();
+        changeScreenChat()
 
         // step 05: convert emoji
         convertEmoji();
@@ -43,9 +43,13 @@ $(document).ready(function() {
 
         // step 09 check onlind
         socket.emit("check-online");
-  
+        
+        // step 10 remove loading
         $("#link-read-more-all-chat").css("display", "inline-block");
         $(".read-more-all-chat-loader").css("display", "none");
+
+        // step 11 call readmore mesaages
+        readMoreMessage();
       });
     }, 300);
     

@@ -223,7 +223,9 @@ $(document).ready(function() {
   changeScreenChat();
 
   // click to the first conversation when f5 web
-  $("ul.people").find("a")[0].click();
+  if ($("ul.people").find("a").length) {
+    $("ul.people").find("a")[0].click();
+  };
 
   convertEmoji();
 
