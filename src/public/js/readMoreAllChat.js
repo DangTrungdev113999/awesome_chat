@@ -8,7 +8,6 @@ $(document).ready(function() {
 
     setTimeout(() => {
       $.get(`/message/read-more-all-chat?skipPersonal=${skipPersonal}&skipGroup=${skipGroup}`, function(data) {
-        console.log(data.leftSideData);
         if (data.leftSideData.trim() === "") {
           alertify.notify("Bạn không còn cuộc trò chuyện nào để xem cả", "error", 7);
           $("#link-read-more-all-chat").css("display", "inline-block");

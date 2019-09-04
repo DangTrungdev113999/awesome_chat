@@ -223,6 +223,55 @@ let readMoreAllChat = async (req, res) => {
   }
 };
 
+let readMoreGroupChat = async (req, res) => {
+  try {
+    let skipGroupChat = +(req.query.skipGroupChat);
+
+    let newAllConversations = await message.readMoreGroupChat(
+      req.user._id,
+      skipGroupChat
+    );
+
+    let dataToRender = {
+      newAllConversations,
+      convertTimestampToHumanTime,
+      lastItemOfArray,
+      bufferToBase64,
+      user: req.user
+    };
+
+    let leftSideData = await renderFile(
+      "src/views/main/readMoreConversations/_leftSide.ejs",
+      dataToRender
+      );
+    
+    let rightSideData = await renderFile(
+      "src/views/main/readMoreConversations/_rightSide.ejs",
+      dataToRender
+    );
+
+    let imageModalData = await renderFile(
+      "src/views/main/readMoreConversations/_imageModal.ejs", 
+      dataToRender
+      );
+
+    let attachmentModalData = await renderFile(
+      "src/views/main/readMoreConversations/_attchmentModal.ejs", 
+      dataToRender
+      );
+    
+    return res.status(200).send({
+      leftSideData,
+      rightSideData,
+      imageModalData,
+      attachmentModalData
+    });
+
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
 let readMore = async (req, res) => {
   try {
     let skipMessage = +(req.query.skipMessage);
@@ -275,5 +324,6 @@ module.exports = {
   addNewImage,
   addNewAttachment,
   readMoreAllChat,
+  readMoreGroupChat,
   readMore
 };

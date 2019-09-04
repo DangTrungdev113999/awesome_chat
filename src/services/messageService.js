@@ -415,6 +415,47 @@ let readMoreAllChat = (currentUserId, shipPersonal, skipGroup) => {
   });
 };
 
+let readMoreGroupChat = (currentUserId, skipGroup) => {
+  return new Promise( async(resolve, reject) => {
+    try {
+      let groupConversations = await ChatGroupModel.readMoreChatGroups(
+        currentUserId,
+        skipGroup,
+        LINIT_CONVERSATIONS_TAKEN
+      );
+
+      let groupChatCovnersationsWithMessagePromise = groupConversations.map(
+        async conversation => {
+          conversation = conversation.toObject();
+
+          let getMessages = await MessageModel.model.getMessagesInGroup(
+            conversation._id,
+            LIMIT_MESSAGES_TAKEN
+          );
+
+          conversation.messages = _.reverse(getMessages);
+
+          return conversation;
+        }
+      );
+
+      let groupChatCovnersationsWithMessage = await Promise.all(
+        groupChatCovnersationsWithMessagePromise
+      );
+
+      groupChatCovnersationsWithMessage = _.sortBy(
+        groupChatCovnersationsWithMessage,
+        item => -item.updatedAt
+      );
+
+      resolve(groupChatCovnersationsWithMessage);
+    } catch (error) {
+      reject(error);
+    }
+
+  })
+}
+
 let readMore = (currentUserId, skipMessage, targetId, chatInGroup) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -452,5 +493,6 @@ module.exports = {
   addNewImage,
   addNewAttachment,
   readMoreAllChat,
+  readMoreGroupChat,
   readMore
 };
