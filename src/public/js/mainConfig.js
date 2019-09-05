@@ -183,7 +183,7 @@ function changeScreenChat() {
     // turn on listen DOM to chat video
     videoChat(divId);
   })
-}
+};
 
 function convertEmoji() {
   $(".convert-emoji").each(function() {
@@ -191,7 +191,22 @@ function convertEmoji() {
     var converted = emojione.toImage(original);
     $(this).html(converted);
   });
-}
+};
+
+function checkConversation() {
+  if (($("ul.people").find("a").length) === 0) {
+    Swal.fire({
+      title: `Bạn chưa có chưa có bạn bè nào, hãy kết bạn để tạo thêm liên lạc !`,
+      type: "info",
+      confirmButtonColor: "#2ECC71",
+      confirmButtonText: "xác nhận!",
+    }).then( result => {
+      if (result.value) {
+        $("#contactsModal").modal("show");
+      }
+    })
+  }
+};
 
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
@@ -223,9 +238,10 @@ $(document).ready(function() {
   changeScreenChat();
 
   // click to the first conversation when f5 web
-  if ($("ul.people").find("a").length) {
-    $("ul.people").find("a")[0].click();
-  };
+  if (($("ul.people").find("a").length)) {
+      $("ul.people").find("a")[0].click();
+  } 
+
 
   convertEmoji();
 
@@ -235,5 +251,7 @@ $(document).ready(function() {
       "warning",
       6)
   })
+
+  checkConversation();
 });
 
