@@ -7,7 +7,7 @@ import { transErrors } from "./../../lang/vi";
 import { app } from "./../config/app";
 import fsExtra from "fs-extra"
 
-const LINIT_CONVERSATIONS_TAKEN = 1;
+const LINIT_CONVERSATIONS_TAKEN = 10;
 const LIMIT_MESSAGES_TAKEN = 35;
 
 let getAllConversationItems = currentUserId => {
@@ -20,13 +20,13 @@ let getAllConversationItems = currentUserId => {
 
       let userConversationsPromise = contacts.map(async contact => {
         if (contact.contactId == currentUserId) {
-          let getUserCatct = await UserModel.getNormalUserById(contact.userId);
-          getUserCatct.updatedAt = contact.updatedAt;
-          return getUserCatct;
+          let getUserContact = await UserModel.getNormalUserById(contact.userId);
+          getUserContact.updatedAt = contact.updatedAt;
+          return getUserContact;
         }
-        let getUserCatct = await UserModel.getNormalUserById(contact.contactId);
-        getUserCatct.updatedAt = contact.updatedAt;
-        return getUserCatct;
+        let getUserContact = await UserModel.getNormalUserById(contact.contactId);
+        getUserContact.updatedAt = contact.updatedAt;
+        return getUserContact;
       });
 
       let userConversations = await Promise.all(userConversationsPromise);
@@ -355,13 +355,13 @@ let readMoreAllChat = (currentUserId, shipPersonal, skipGroup) => {
 
       let userConversationsPromise = contacts.map(async contact => {
         if (contact.contactId == currentUserId) {
-          let getUserCatct = await UserModel.getNormalUserById(contact.userId);
-          getUserCatct.updatedAt = contact.updatedAt;
-          return getUserCatct;
+          let getUserContact = await UserModel.getNormalUserById(contact.userId);
+          getUserContact.updatedAt = contact.updatedAt;
+          return getUserContact;
         }
-        let getUserCatct = await UserModel.getNormalUserById(contact.contactId);
-        getUserCatct.updatedAt = contact.updatedAt;
-        return getUserCatct;
+        let getUserContact = await UserModel.getNormalUserById(contact.contactId);
+        getUserContact.updatedAt = contact.updatedAt;
+        return getUserContact;
       });
 
       let userConversations = await Promise.all(userConversationsPromise);
@@ -456,6 +456,59 @@ let readMoreGroupChat = (currentUserId, skipGroup) => {
   })
 }
 
+let readMoreUserChat = (currentUserId, skipUserChat) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let contacts = await ContactModel.readMoreContacts(
+        currentUserId,
+        skipUserChat,
+        LINIT_CONVERSATIONS_TAKEN
+      );
+
+      let userConversationsPromise = contacts.map(async contact => {
+        if ( contact.contactId == currentUserId) {
+          let getUserContact = await UserModel.getNormalUserById(contact.userId);
+          getUserContact.updateAt = contact.updateAt;
+          return getUserContact;
+        };
+
+        let getUserContact = await UserModel.getNormalUserById(contact.contactId);
+        getUserContact.updateAt = contact.updateAt;
+        return getUserContact;
+      });
+
+      let userConversations = await Promise.all(userConversationsPromise);
+      userConversations = _.sortBy(userConversations, item => item.updateAt);
+
+      let userConversationWithMessagesPromise = userConversations.map(
+        async conversation => {
+          conversation = conversation.toObject();
+
+            let getMessages = await MessageModel.model.getMessagesInPersonal(
+              currentUserId, // send user
+              conversation._id, // received user
+              LIMIT_MESSAGES_TAKEN
+            );
+            conversation.messages = _.reverse(getMessages);
+
+          return conversation;
+        }
+      );
+
+      let userConversationWithMessage = await Promise.all(userConversationWithMessagesPromise);
+      userConversationWithMessage = _.sortBy(
+        userConversationWithMessage, 
+        item => item.updateAt
+      );
+
+      resolve(userConversationWithMessage);
+
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 let readMore = (currentUserId, skipMessage, targetId, chatInGroup) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -494,5 +547,6 @@ module.exports = {
   addNewAttachment,
   readMoreAllChat,
   readMoreGroupChat,
+  readMoreUserChat,
   readMore
 };
