@@ -35,7 +35,7 @@ $(document).ready(function() {
         $("body").append(data.imageModalData);
         
         // step 07: call gridPhoto function
-        gridPhotos();
+        gridPhotos(5);
 
         // step 0: handle attchment modal
         $("body").append(data.attachmentModalData);

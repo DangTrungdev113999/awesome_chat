@@ -208,6 +208,17 @@ function checkConversation() {
   }
 };
 
+function configFindConversation() {
+  $('#noti_Button').click(function() {
+    $('#notifications').fadeToggle('fast', 'linear');
+    $('.noti_counter').fadeOut('slow');
+    return false;
+  });
+  $(".main-content").click(function() {
+    $('#notifications').fadeOut('fast', 'linear');
+  });
+}
+
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();

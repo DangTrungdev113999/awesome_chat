@@ -42,6 +42,8 @@ $(document).ready(function() {
         });
 
         removeContact(); // js/removeContact.js
+
+        chatUser();
   
         $("#link-read-more-contact").css("display", "inline-block");
         $(".read-more-contact-loader").css("display", "none");
