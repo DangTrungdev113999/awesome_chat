@@ -160,6 +160,23 @@ function bufferToBase64(buffer) {
   );
 };
 
+function zoomImage() {
+  // Get the modal
+  let modal = $("#myModal");
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  let modalImg = $("#img01");
+
+  $(".myImg").unbind("click").on("click", function() {
+    $("#myModal").css("display", "inline-block");
+    $("#img01").attr("src",  $(this).attr("src"));
+  })
+
+  // When the user clicks on <span> (x), close the modal
+  $(".close-modal").unbind("click").on("click", function() {
+    $("#myModal").css("display", "none");
+  })
+}
+
 function changeScreenChat() {
   $(".room-chat").unbind("click").on("click", function() {
     let divId = $(this).find("li").data("chat");
@@ -182,6 +199,8 @@ function changeScreenChat() {
     
     // turn on listen DOM to chat video
     videoChat(divId);
+
+    zoomImage();
   })
 };
 
@@ -264,5 +283,6 @@ $(document).ready(function() {
   })
 
   checkConversation();
+
 });
 

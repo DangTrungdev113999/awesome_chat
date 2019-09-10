@@ -48,7 +48,7 @@ function imageChat(divId) {
         );
 
         let imageChat = `
-            <img src="data: ${data.message.file.contentType}; base64, ${bufferToBase64(data.message.file.data.data)}" class="show-image-chat">
+            <img class="myImg" src="data: ${data.message.file.contentType}; base64, ${bufferToBase64(data.message.file.data.data)}" class="show-image-chat">
         `;
 
         if (isChatGroup) {
@@ -105,6 +105,7 @@ function imageChat(divId) {
 
         $(`#imagesModal_${divId}`).find(".all-images").append(imageChatToModal);
 
+
       },
       error: function(error) {
         alertify.notify(error.responseText, "error", 6);
@@ -123,7 +124,7 @@ $(document).ready(function() {
     );
 
     let imageChat = `
-      <img src="data: ${response.message.file.contentType}; base64, ${bufferToBase64(response.message.file.data.data)}" class="show-image-chat">
+      <img src="data: ${response.message.file.contentType}; base64, ${bufferToBase64(response.message.file.data.data)}" class="show-image-chat myImg">
     `;
 
 
