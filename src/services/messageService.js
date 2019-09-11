@@ -35,6 +35,8 @@ let getAllConversationItems = currentUserId => {
         LINIT_CONVERSATIONS_TAKEN
       );
 
+      
+
       let allConversations = userConversations.concat(groupConversations);
 
       allConversations = _.sortBy(allConversations, item => -item.updatedAt);
@@ -49,7 +51,14 @@ let getAllConversationItems = currentUserId => {
               conversation._id, // id of group
               LIMIT_MESSAGES_TAKEN
             );
+            let members = conversation.menbers.map(async memberId => {
+              let userInfo =  await UserModel.getNormalUserById(memberId.userId);
+              return userInfo;
+            });
+
+            conversation.menbers = await Promise.all(members);
             conversation.messages = _.reverse(getMessages);
+
           } else {
             let getMessages = await MessageModel.model.getMessagesInPersonal(
               currentUserId, // send user
@@ -71,7 +80,6 @@ let getAllConversationItems = currentUserId => {
         allConversationWithMessages,
         item => -item.updatedAt
       );
-
       resolve({
         allConversationWithMessages
       });

@@ -24,8 +24,9 @@
                                     <a href="javascript:void(0)">&nbsp;</a>
                                 </span>
                                 <span class="chat-menu-right">
-                                    <a href="javascript:void(0) %>" class="number-menber" data-toggle="modal">
-                                        <span class="show-number-menber"><%= conversation.userAmount %></span>                                        %>
+                                    <a href="#menbersOfGroupModal_<%= conversation._id %>" class="number-menber" data-toggle="modal">
+                                        Thành viên
+                                        <span class="show-number-menber"><%= conversation.userAmount %></span> 
                                         <i class="fa fa-user-circle"></i>
                                     </a>
                                 </span>
@@ -33,8 +34,9 @@
                                     <a href="javascript:void(0)">&nbsp;</a>
                                 </span>
                                 <span class="chat-menu-right">
-                                    <a href="javascript:void(0) %>" class="number-messages" data-toggle="modal">
-                                        <span class="show-number-messages"><%= conversation.messagesAmount %></span>                                        %>
+                                    <a href="javascript:void(0)" class="number-messages" data-toggle="modal">
+                                        Tin nhắn
+                                        <span class="show-number-messages"><%= conversation.messagesAmount %></span>
                                         <i class="fa fa-comment-o"></i>
                                     </a>
                                 </span>

@@ -1,0 +1,37 @@
+<% allConversationWithMessages.forEach(function(conversation, index) { %>
+    <div class="modal fade" id="menbersOfGroupModal_<%= conversation._id %>" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Những thành viên trong nhóm</h4>
+                </div>
+                <div class="modal-body">
+                    <% if(conversation.menbers) { %>
+                        <%  conversation.menbers.forEach( member => { %>
+                            <% if(conversation.userId == member._id) { %>
+                                <div class="member-of-group">
+                                    <img src="images/users/<%= member.avatar %>" alt="..." class="members-avatar">
+                                    <div class="content">
+                                        <h3 style="color: red; text-align: center">You</h3>
+                                    </div>
+                                </div>
+                            <% } else { %>
+                                <div class="member-of-group">
+                                    <img src="images/users/<%= member.avatar %>" alt="..." class="members-avatar">
+                                    <div class="content">
+                                    <h3 style="text-align: center"><%= member.username  %></h3>
+                                    <p>
+                                        <button class="btn-menber-talk" data-uid="<%= member._id %>">Trò chuyện</button> 
+                                    </p>
+                                    </div>
+                                </div>
+                            <% } %>
+
+                        <% }) %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% }) %>
