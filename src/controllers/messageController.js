@@ -114,6 +114,7 @@ let addNewImage = (req, res) => {
 
 
 };
+
 // handle file chat
 let storeageAttachmentChat = multer.diskStorage({
   destination: (req, file, callback) => {

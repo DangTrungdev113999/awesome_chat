@@ -161,11 +161,6 @@ function bufferToBase64(buffer) {
 };
 
 function zoomImage() {
-  // Get the modal
-  let modal = $("#myModal");
-  // Get the image and insert it inside the modal - use its "alt" text as a caption
-  let modalImg = $("#img01");
-
   $(".myImg").unbind("click").on("click", function() {
     $("#myModal").css("display", "inline-block");
     $("#img01").attr("src",  $(this).attr("src"));
@@ -175,6 +170,14 @@ function zoomImage() {
   $(".close-modal").unbind("click").on("click", function() {
     $("#myModal").css("display", "none");
   })
+}
+
+function memberOfGroup(groupId) {
+  $(".btn-menber-talk").unbind("click").on("click", function() {
+    let targetId = $(this).data("uid");
+    $(`#menbersOfGroupModal_${groupId}`).modal("hide");
+    $("ul.people").find(`a[data-target="#to_${targetId}"]`).click();
+  });
 }
 
 function changeScreenChat() {
@@ -201,6 +204,8 @@ function changeScreenChat() {
     videoChat(divId);
 
     zoomImage();
+
+    memberOfGroup(divId);
   })
 };
 
@@ -237,6 +242,15 @@ function configFindConversation() {
     $('#notifications').fadeOut('fast', 'linear');
   });
 }
+
+function chatUser() {
+  $(".user-talk").unbind("click").on("click", function() {
+    let targetId = $(this).data("uid");
+    $("#contactsModal").modal("hide");
+    $("ul.people").find(`a[data-target="#to_${targetId}"]`).click();
+  });
+}
+
 
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
@@ -283,6 +297,8 @@ $(document).ready(function() {
   })
 
   checkConversation();
+
+  chatUser();
 
 });
 

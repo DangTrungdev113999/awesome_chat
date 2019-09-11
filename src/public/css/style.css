@@ -1737,3 +1737,46 @@ label:focus,
     width: 100%;
   }
 }
+
+/*  */
+.member-of-group {
+  width: 100px;
+  display: inline-block;
+  margin: 0 50px;
+}
+
+.members-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 0 15px;
+}
+
+.btn-menber-talk {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-shrink: 0;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0 12px;
+  min-width: 26px;
+  min-height: 26px;
+  line-height: 26px;
+  font-size: 13px;
+  border-color: #2ACC77;
+  background-color: #2ACC77;
+  color: #fff;
+  fill: #fff;
+  margin: 10px 0px 5px 2px;
+}
