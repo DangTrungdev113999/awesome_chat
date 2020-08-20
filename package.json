@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/DangTrungdev113999/awesome_chat#readme",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
